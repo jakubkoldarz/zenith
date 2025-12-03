@@ -1,0 +1,81 @@
+version: "3.8"
+
+services:
+    # 1. Baza Danych
+    db-nest:
+        image: postgres:15-alpine
+        container_name: zenith_db_nest
+        restart: always
+        environment:
+            POSTGRES_USER: ${DB_USER}
+            POSTGRES_PASSWORD: ${DB_PASSWORD}
+            POSTGRES_DB: ${DB_NAME}
+        ports:
+            - "5433:5432"
+        volumes:
+            - nest_data:/var/lib/postgresql/data
+
+    pgadmin:
+        image: dpage/pgadmin4
+        container_name: zenith_pgadmin_nest
+        restart: always
+        environment:
+            PGADMIN_DEFAULT_EMAIL: admin@admin.com
+            PGADMIN_DEFAULT_PASSWORD: admin
+        ports:
+            - "5051:80"
+        depends_on:
+            - db-nest
+
+    # 2. Backend
+    backend:
+        build:
+            context: ./backend
+        container_name: zenith_backend
+        restart: always
+        ports:
+            - "3000:3000"
+        environment:
+            DATABASE_HOST: db-nest
+            DATABASE_PORT: 5432
+            DATABASE_USER: ${DB_USER}
+            DATABASE_PASSWORD: ${DB_PASSWORD}
+            DATABASE_NAME: ${DB_NAME}
+        depends_on:
+            - db-nest
+        command: npm run start:dev
+
+        develop:
+            watch:
+                - path: ./backend
+                  action: sync
+                  target: /usr/src/app
+                  ignore:
+                      - node_modules/
+                - path: ./backend/package.json
+                  action: rebuild
+
+    # 3. Frontend
+    frontend:
+        build:
+            context: ./frontend
+        container_name: zenith_frontend
+        restart: always
+        ports:
+            - "8080:3000"
+        depends_on:
+            - backend
+        command: npm start
+
+        develop:
+            watch:
+                - path: ./frontend
+                  action: sync
+                  target: /app
+                  ignore:
+                      - node_modules/
+                - path: ./frontend/package.json
+                  action: rebuild
+
+volumes:
+    nest_data:

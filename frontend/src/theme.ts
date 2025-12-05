@@ -5,8 +5,8 @@ export const theme = createTheme({
         mode: "dark",
 
         primary: {
-            main: "#7c3aed",
-            light: "#a78bfa",
+            main: "#490eadff",
+            light: "#4b21caff",
             dark: "#5b21b6",
             contrastText: "#ffffff",
         },
@@ -18,7 +18,6 @@ export const theme = createTheme({
 
         background: {
             default: "#0f0f15",
-
             paper: "#18181b",
         },
 
@@ -32,6 +31,12 @@ export const theme = createTheme({
         },
         success: {
             main: "#10b981",
+        },
+
+        roles: {
+            owner: "#7646efff",
+            editor: "#0e66e9ff",
+            viewer: "#089c6bff",
         },
     },
 
@@ -48,3 +53,21 @@ export const theme = createTheme({
         button: { fontFamily: '"Space Grotesk", sans-serif', fontWeight: 600, letterSpacing: "0.05em" },
     },
 });
+
+declare module "@mui/material/styles" {
+    interface Palette {
+        roles: {
+            owner: string;
+            editor: string;
+            viewer: string;
+        };
+    }
+
+    interface PaletteOptions {
+        roles?: {
+            owner?: string;
+            editor?: string;
+            viewer?: string;
+        };
+    }
+}

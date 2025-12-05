@@ -105,7 +105,7 @@ export const LoginForm = () => {
                     variant="contained"
                     type="submit"
                     size="large"
-                    disabled={loading}
+                    loading={loading}
                     sx={{ marginTop: "1.5rem", py: 1.5, fontWeight: 600 }}
                 >
                     Login

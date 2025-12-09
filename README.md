@@ -50,11 +50,11 @@ Projekt podzielony jest na dwie główne części:
 
 ```text
 zenith/
-├── client/           # Frontend (React 19 + MUI 7)
+├── frontend/           # Frontend (React 19 + MUI 7)
 │   ├── src/
 │   ├── public/
 │   └── package.json
-├── server/           # Backend (NestJS API)
+├── backend/           # Backend (NestJS API)
 │   ├── src/
 │   └── package.json
 └── README.md

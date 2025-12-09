@@ -10,12 +10,11 @@ import {
     alpha,
     Stack,
 } from "@mui/material";
-import { CreateProjectDto, ProjectDto } from "../types/projectDto";
 import { useForm } from "react-hook-form";
 import { useApi } from "../hooks/useApi";
 import { enqueueSnackbar } from "notistack";
-import { CreateProjectFormData, createProjectSchema } from "../schemas/projectSchemas";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { CreateProjectDto, CreateProjectSchema, ProjectDto } from "../schemas/projectSchemas";
 
 interface CreateProjectDialogProps {
     open: boolean;
@@ -32,8 +31,8 @@ export function CreateProjectDialog({ open, onClose, onProjectCreated }: CreateP
         handleSubmit,
         formState: { errors },
         reset,
-    } = useForm<CreateProjectFormData>({
-        resolver: zodResolver(createProjectSchema),
+    } = useForm<CreateProjectDto>({
+        resolver: zodResolver(CreateProjectSchema),
     });
 
     const handleClose = () => {
@@ -41,7 +40,7 @@ export function CreateProjectDialog({ open, onClose, onProjectCreated }: CreateP
         onClose();
     };
 
-    const onSubmit = async (data: CreateProjectFormData) => {
+    const onSubmit = async (data: CreateProjectDto) => {
         console.log("Submitting", data);
         try {
             const newProject = await execute("post", "projects", data);

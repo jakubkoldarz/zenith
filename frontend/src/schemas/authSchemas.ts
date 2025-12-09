@@ -12,5 +12,10 @@ export const registerSchema = z.object({
     password: z.string().min(6, "Password must be at least 6 characters long"),
 });
 
-export type LoginFormData = z.infer<typeof loginSchema>;
-export type RegisterFormData = z.infer<typeof registerSchema>;
+export const AuthSchema = z.object({
+    token: z.string(),
+});
+
+export type LoginDto = z.infer<typeof loginSchema>;
+export type RegisterDto = z.infer<typeof registerSchema>;
+export type AuthResponseDto = z.infer<typeof AuthSchema>;

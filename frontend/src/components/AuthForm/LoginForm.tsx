@@ -3,10 +3,9 @@ import { Key, Email } from "@mui/icons-material";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { GlassCard } from "../ui/GlassCard";
-import { LoginFormData, loginSchema } from "../../schemas/authSchemas";
+import { AuthResponseDto, LoginDto, loginSchema } from "../../schemas/authSchemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useSnackbar } from "notistack";
-import { AuthResponseDto, LoginDto } from "../../types/authDto";
 import { useApi } from "../../hooks/useApi";
 import useAuth from "../../hooks/useAuth";
 
@@ -22,11 +21,11 @@ export const LoginForm = () => {
         register,
         handleSubmit,
         formState: { errors },
-    } = useForm<LoginFormData>({
+    } = useForm<LoginDto>({
         resolver: zodResolver(loginSchema),
     });
 
-    const onSubmit = async (data: LoginFormData) => {
+    const onSubmit = async (data: LoginDto) => {
         try {
             const response = await execute("post", "auth/login", data as LoginDto);
             login(response.token);

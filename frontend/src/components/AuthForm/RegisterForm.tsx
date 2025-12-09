@@ -3,9 +3,8 @@ import { Key, Email, Badge, Person } from "@mui/icons-material";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { GlassCard } from "../ui/GlassCard";
-import { RegisterFormData, registerSchema } from "../../schemas/authSchemas";
+import { RegisterDto, registerSchema } from "../../schemas/authSchemas";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { AuthResponseDto, LoginDto, RegisterDto } from "../../types/authDto";
 import { useApi } from "../../hooks/useApi";
 import { enqueueSnackbar } from "notistack";
 
@@ -19,11 +18,11 @@ export const RegisterForm = () => {
         register,
         handleSubmit,
         formState: { errors },
-    } = useForm<RegisterFormData>({
+    } = useForm<RegisterDto>({
         resolver: zodResolver(registerSchema),
     });
 
-    const onSubmit = async (data: RegisterFormData) => {
+    const onSubmit = async (data: RegisterDto) => {
         try {
             await execute("post", "auth/register", data as RegisterDto);
             enqueueSnackbar("Registration successful! Please log in.", { variant: "success" });

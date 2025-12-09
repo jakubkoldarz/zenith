@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from "react";
-import { UserDto } from "../types/userDto";
 import api from "../api";
+import { UserDto } from "../schemas/userSchemas";
 
 interface AuthContextType {
     user: UserDto | null;

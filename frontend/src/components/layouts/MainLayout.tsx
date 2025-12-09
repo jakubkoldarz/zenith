@@ -5,14 +5,14 @@ import SideMenu from "../SideMenu";
 import { CreateProjectDialog } from "../CreateProjectDialog";
 import { useEffect, useMemo, useState } from "react";
 import { useApi } from "../../hooks/useApi";
-import { ProjectDto } from "../../types/projectDto";
 import { ProjectRole } from "../../types/projectRoles";
+import { ProjectDto, UpdateProjectDto } from "../../schemas/projectSchemas";
 
 export type ProjectContextType = {
     userProjects: ProjectDto[];
     sharedProjects: ProjectDto[];
     loadingProjects: boolean;
-    updateProjectInList: (projectId: string, updatedFields: Partial<ProjectDto>) => void;
+    updateProjectInList: (projectId: string, updatedFields: UpdateProjectDto) => void;
 };
 
 export default function MainLayout() {

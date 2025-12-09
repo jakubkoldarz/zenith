@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { ProjectDto } from "../types/projectDto";
 import api from "../api";
 import SearchIcon from "@mui/icons-material/Search";
 import { Autocomplete, InputAdornment, Stack, TextField, Typography } from "@mui/material";
 import { RoleChip } from "./RoleChip";
+import { ProjectDto } from "../schemas/projectSchemas";
 
 export default function ProjectSearch() {
     const navigate = useNavigate();

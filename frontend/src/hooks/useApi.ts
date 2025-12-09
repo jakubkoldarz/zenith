@@ -1,12 +1,11 @@
 import { useState } from "react";
 import api from "../api";
-import { AxiosError } from "axios";
+import axios, { AxiosError } from "axios";
 import { ErrorResponseDto } from "../types/errorResponseDto";
 
 export const useApi = <TResponse, TPayload = void>() => {
     const [data, setData] = useState<TResponse | null>(null);
     const [loading, setLoading] = useState<boolean>(false);
-    // Inicjalizujemy jako null
     const [error, setError] = useState<ErrorResponseDto | null>(null);
 
     const execute = async (

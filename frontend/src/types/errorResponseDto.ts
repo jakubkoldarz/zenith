@@ -1,4 +1,4 @@
-export interface ErrorResponseDto {
+export type ErrorResponseDto = {
     status: number;
     errors: string[];
-}
+};

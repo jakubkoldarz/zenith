@@ -1,6 +1,5 @@
 import { Suspense, useEffect, useState } from "react";
 import { useNavigate, useOutletContext, useParams } from "react-router-dom";
-import { ProjectDto, UpdateProjectDto } from "../types/projectDto";
 import { useApi } from "../hooks/useApi";
 import { enqueueSnackbar } from "notistack";
 import {
@@ -20,6 +19,7 @@ import {
 import { ArrowBack, ErrorOutline, PersonAdd, Share } from "@mui/icons-material";
 import EditBox from "./EditBox";
 import { ProjectContextType } from "./layouts/MainLayout";
+import { ProjectDto, UpdateProjectDto } from "../schemas/projectSchemas";
 
 interface ProjectDetailsParams extends Record<string, string | undefined> {
     id: string;
@@ -48,7 +48,7 @@ export default function ProjectDetails() {
         (async () => {
             await fetchProjectDetails();
         })();
-    }, []);
+    }, [id]);
 
     const onRetry = async () => {
         await fetchProjectDetails();

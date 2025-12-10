@@ -1,15 +1,14 @@
 import { Backdrop, CircularProgress, Divider, Stack, Typography } from "@mui/material";
 import { Activity } from "react";
 import ProjectList from "./ProjectsList";
-import { useOutletContext } from "react-router-dom";
-import { ProjectContextType } from "./layouts/MainLayout";
+import { useProjects } from "../hooks/useProjects";
 
 export default function ProjectsPanel() {
-    const { userProjects, sharedProjects, loadingProjects } = useOutletContext<ProjectContextType>();
+    const { userProjects, sharedProjects, isLoading } = useProjects();
 
     return (
         <Stack direction="column">
-            <Backdrop open={loadingProjects}>
+            <Backdrop open={isLoading}>
                 <CircularProgress />
                 <Typography variant="h6" color="primary" marginLeft={2}>
                     Loading projects...

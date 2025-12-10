@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { ProjectRole } from "../types/projectRoles";
+import { ProjectRole } from "../../../types/projectRoles";
 
 export const ProjectSchema = z.object({
     id: z.string(),

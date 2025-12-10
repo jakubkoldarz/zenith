@@ -1,7 +1,4 @@
-import { Suspense, useEffect, useState } from "react";
-import { useNavigate, useOutletContext, useParams } from "react-router-dom";
-import { useApi } from "../hooks/useApi";
-import { enqueueSnackbar } from "notistack";
+import { useNavigate, useParams } from "react-router-dom";
 import {
     AppBar,
     Backdrop,
@@ -9,17 +6,15 @@ import {
     Button,
     CircularProgress,
     Container,
-    InputBase,
     Stack,
-    TextField,
     Toolbar,
     Typography,
     useTheme,
 } from "@mui/material";
-import { ArrowBack, ErrorOutline, PersonAdd, Share } from "@mui/icons-material";
-import EditBox from "./EditBox";
-import { ProjectContextType } from "./layouts/MainLayout";
-import { ProjectDto, UpdateProjectDto } from "../schemas/projectSchemas";
+import { ArrowBack, ErrorOutline, PersonAdd } from "@mui/icons-material";
+import { useProjectDetails } from "../hooks/useProjectDetails";
+import { useUpdateProject } from "../hooks/useUpdateProject";
+import EditBox from "../../../components/EditBox";
 
 interface ProjectDetailsParams extends Record<string, string | undefined> {
     id: string;
@@ -27,64 +22,21 @@ interface ProjectDetailsParams extends Record<string, string | undefined> {
 
 export default function ProjectDetails() {
     const { id } = useParams<ProjectDetailsParams>();
-    const [project, setProject] = useState<ProjectDto | null>(null);
-    const { error, loading, execute } = useApi<ProjectDto>();
-    const { loading: loadingUpdate, execute: executeUpdate } = useApi<ProjectDto, UpdateProjectDto>();
     const theme = useTheme();
     const navigate = useNavigate();
+    const { project, isLoading, isError, refetch } = useProjectDetails(id!);
+    const { mutateAsync: updateProject, isPending: loadingUpdate } = useUpdateProject();
 
-    async function fetchProjectDetails() {
-        try {
-            const response = await execute("get", `/projects/${id}`);
-            setProject(response);
-        } catch (err) {
-            setProject(null);
-            enqueueSnackbar("Failed to load project details", { variant: "error" });
-        }
-    }
-
-    useEffect(() => {
-        if (id === null) return;
-        (async () => {
-            await fetchProjectDetails();
-        })();
-    }, [id]);
-
-    const onRetry = async () => {
-        await fetchProjectDetails();
+    const handleChangeProjectName = async (newName: string) => {
+        await updateProject({ id: id!, payload: { name: newName } });
+    };
+    const handleRetry = () => {
+        refetch();
     };
 
-    const { updateProjectInList } = useOutletContext<ProjectContextType>();
-
-    const handleChangeProjectName = (newName: string) => {
-        const oldProject = project;
-
-        if (project) {
-            setProject({ ...project, name: newName });
-        }
-
-        if (project?.id) {
-            updateProjectInList(project.id, { name: newName });
-        }
-
-        (async () => {
-            try {
-                await executeUpdate("patch", `/projects/${id}`, { name: newName });
-                enqueueSnackbar("Project name updated successfully", { variant: "success" });
-            } catch (err) {
-                enqueueSnackbar("Failed to update project name", { variant: "error" });
-
-                if (oldProject) {
-                    setProject(oldProject);
-                    updateProjectInList(oldProject.id, { name: oldProject.name });
-                }
-            }
-        })();
-    };
-
-    if (loading) {
+    if (isLoading) {
         return (
-            <Backdrop open={loading}>
+            <Backdrop open={isLoading}>
                 <CircularProgress />
                 <Typography variant="h6" marginLeft={2} color="primary">
                     Loading project details...
@@ -93,7 +45,7 @@ export default function ProjectDetails() {
         );
     }
 
-    if (error) {
+    if (isError) {
         return (
             <Container maxWidth="sm">
                 <Box
@@ -122,7 +74,7 @@ export default function ProjectDetails() {
                         <Button variant="text" startIcon={<ArrowBack />} onClick={() => navigate("/projects")}>
                             Go Back
                         </Button>
-                        <Button variant="contained" color="primary" onClick={onRetry}>
+                        <Button variant="contained" color="primary" onClick={handleRetry}>
                             Try Again
                         </Button>
                     </Box>

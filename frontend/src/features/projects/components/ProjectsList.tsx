@@ -1,6 +1,6 @@
 import { Grid } from "@mui/material";
 import { ProjectCard } from "./ProjectCard";
-import { ProjectDto } from "../schemas/projectSchemas";
+import { ProjectDto } from "../types/projectSchemas";
 
 export default function ProjectList({ projects }: { projects: ProjectDto[] }) {
     return (

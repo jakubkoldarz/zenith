@@ -12,10 +12,10 @@ import {
     Typography,
 } from "@mui/material";
 import { theme } from "../theme";
-import ProjectSearch from "./ProjectSearch";
 import { useRef, useState } from "react";
-import useAuth from "../hooks/useAuth";
+import useAuth from "../features/auth/hooks/useAuth";
 import { Add } from "@mui/icons-material";
+import ProjectSearch from "../features/projects/components/ProjectSearch";
 
 export default function AppHeader({ onOpenCreateDialog }: { onOpenCreateDialog: () => void }) {
     const [menuAnchor, setMenuAnchor] = useState<HTMLElement | null>(null);

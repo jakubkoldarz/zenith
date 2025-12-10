@@ -2,17 +2,16 @@ import { Box, Typography, TextField, useTheme, Button, InputAdornment, Alert } f
 import { Key, Email, Badge, Person } from "@mui/icons-material";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { GlassCard } from "../ui/GlassCard";
-import { RegisterDto, registerSchema } from "../../schemas/authSchemas";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useApi } from "../../hooks/useApi";
 import { enqueueSnackbar } from "notistack";
+import { RegisterDto, registerSchema } from "../../../schemas/authSchemas";
+import { GlassCard } from "../../../components/ui/GlassCard";
+import { useRegister } from "../hooks/useRegister";
 
 export const RegisterForm = () => {
     const theme = useTheme();
     const iconColor = theme.palette.primary.light;
-    const { data, loading, error, execute } = useApi<null, RegisterDto>();
-    const navigate = useNavigate();
+    const { register: registerUser, isPending: loading } = useRegister();
 
     const {
         register,
@@ -23,11 +22,7 @@ export const RegisterForm = () => {
     });
 
     const onSubmit = async (data: RegisterDto) => {
-        try {
-            await execute("post", "auth/register", data as RegisterDto);
-            enqueueSnackbar("Registration successful! Please log in.", { variant: "success" });
-            navigate("/login");
-        } catch (err) {}
+        await registerUser(data);
     };
 
     return (
@@ -135,13 +130,13 @@ export const RegisterForm = () => {
                     }}
                 />
 
-                {error && <Alert severity="error">{error.errors.join(", ")}</Alert>}
+                {/* {error && <Alert severity="error">{error.errors.join(", ")}</Alert>} */}
 
                 <Button
                     variant="contained"
                     type="submit"
                     size="large"
-                    disabled={loading}
+                    loading={loading}
                     sx={{ marginTop: "1.5rem", py: 1.5, fontWeight: 600 }}
                 >
                     Register

@@ -1,7 +1,7 @@
 import { Card, CardActionArea, CardContent, Typography, Box, Grid } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { useRoleColor } from "../hooks/useRoleColor";
-import { ProjectDto } from "../schemas/projectSchemas";
+import { useRoleColor } from "../../../hooks/useRoleColor";
+import { ProjectDto } from "../types/projectSchemas";
 
 export function ProjectCard({ project }: { project: ProjectDto }) {
     const navigate = useNavigate();

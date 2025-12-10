@@ -1,41 +1,22 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import api from "../api";
 import SearchIcon from "@mui/icons-material/Search";
 import { Autocomplete, InputAdornment, Stack, TextField, Typography } from "@mui/material";
-import { RoleChip } from "./RoleChip";
-import { ProjectDto } from "../schemas/projectSchemas";
+import { ProjectDto } from "../types/projectSchemas";
+import { RoleChip } from "../../../components/RoleChip";
+import { useProjects } from "../hooks/useProjects";
 
 export default function ProjectSearch() {
-    const navigate = useNavigate();
-
-    const [projects, setProjects] = useState<ProjectDto[]>([]);
-    const [loading, setLoading] = useState(false);
     const [open, setOpen] = useState(false);
-
-    useEffect(() => {
-        if (!open) return;
-
-        (async () => {
-            try {
-                setLoading(true);
-                const response = await api.get<ProjectDto[]>("/projects");
-                setProjects([...response.data]);
-            } catch (error) {
-                console.log(error);
-                setProjects([]);
-            } finally {
-                setLoading(false);
-            }
-        })();
-    }, [open]);
+    const navigate = useNavigate();
+    const { isLoading, allProjects } = useProjects({ enabled: open });
 
     return (
         <Autocomplete<ProjectDto, false, false, true>
             open={open}
             onOpen={() => setOpen(true)}
             onClose={() => setOpen(false)}
-            loading={loading}
+            loading={isLoading}
             size="small"
             sx={{
                 width: "70%",
@@ -44,7 +25,7 @@ export default function ProjectSearch() {
                     backgroundColor: "background.paper",
                 },
             }}
-            options={[...projects]}
+            options={[...allProjects]}
             freeSolo
             isOptionEqualToValue={(option, value) => option.id === value.id}
             getOptionLabel={(option) => {

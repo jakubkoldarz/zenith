@@ -1,5 +1,5 @@
 import { Stack } from "@mui/material";
-import { RegisterForm } from "../components/AuthForm/RegisterForm";
+import { RegisterForm } from "../features/auth/api/RegisterForm";
 
 export default function LoginPage() {
     return (

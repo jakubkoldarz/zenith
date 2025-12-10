@@ -1,30 +1,17 @@
-import {
-    Dialog,
-    DialogTitle,
-    DialogContent,
-    DialogActions,
-    TextField,
-    Button,
-    Box,
-    useTheme,
-    alpha,
-    Stack,
-} from "@mui/material";
+import { Dialog, DialogTitle, DialogContent, TextField, Button, Box, useTheme, alpha, Stack } from "@mui/material";
 import { useForm } from "react-hook-form";
-import { useApi } from "../hooks/useApi";
-import { enqueueSnackbar } from "notistack";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { CreateProjectDto, CreateProjectSchema, ProjectDto } from "../schemas/projectSchemas";
+import { CreateProjectDto, CreateProjectSchema } from "../features/projects/types/projectSchemas";
+import { useCreateProject } from "../features/projects/hooks/useCreateProject";
 
 interface CreateProjectDialogProps {
     open: boolean;
     onClose: () => void;
-    onProjectCreated: (newProject: ProjectDto) => void;
 }
 
-export function CreateProjectDialog({ open, onClose, onProjectCreated }: CreateProjectDialogProps) {
+export function CreateProjectDialog({ open, onClose }: CreateProjectDialogProps) {
     const theme = useTheme();
-    const { data, error, loading, execute } = useApi<ProjectDto, CreateProjectDto>();
+    const { isPending: loading, createProject } = useCreateProject();
 
     const {
         register,
@@ -41,15 +28,8 @@ export function CreateProjectDialog({ open, onClose, onProjectCreated }: CreateP
     };
 
     const onSubmit = async (data: CreateProjectDto) => {
-        console.log("Submitting", data);
-        try {
-            const newProject = await execute("post", "projects", data);
-            onProjectCreated(newProject);
-            handleClose();
-            enqueueSnackbar("Project created successfully!", { variant: "success" });
-        } catch (err) {
-            enqueueSnackbar("Failed to create project.", { variant: "error" });
-        }
+        await createProject({ name: data.name });
+        handleClose();
     };
 
     return (

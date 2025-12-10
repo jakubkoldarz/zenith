@@ -1,5 +1,5 @@
 import { Stack } from "@mui/material";
-import { LoginForm } from "../components/AuthForm/LoginForm";
+import { LoginForm } from "../features/auth/api/LoginForm";
 
 export default function LoginPage() {
     return (

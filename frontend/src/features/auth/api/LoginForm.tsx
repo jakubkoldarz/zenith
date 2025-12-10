@@ -2,20 +2,15 @@ import { Box, Typography, TextField, useTheme, Button, InputAdornment, Alert } f
 import { Key, Email } from "@mui/icons-material";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { GlassCard } from "../ui/GlassCard";
-import { AuthResponseDto, LoginDto, loginSchema } from "../../schemas/authSchemas";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useSnackbar } from "notistack";
-import { useApi } from "../../hooks/useApi";
-import useAuth from "../../hooks/useAuth";
+import { LoginDto, loginSchema } from "../../../schemas/authSchemas";
+import { GlassCard } from "../../../components/ui/GlassCard";
+import { useLogin } from "../hooks/useLogin";
 
 export const LoginForm = () => {
-    const { enqueueSnackbar } = useSnackbar();
-    const { login } = useAuth();
-    const { loading, error, execute } = useApi<AuthResponseDto, LoginDto>();
-
     const theme = useTheme();
     const iconColor = theme.palette.primary.light;
+    const { login, isPending: loading, error } = useLogin();
 
     const {
         register,
@@ -26,11 +21,8 @@ export const LoginForm = () => {
     });
 
     const onSubmit = async (data: LoginDto) => {
-        try {
-            const response = await execute("post", "auth/login", data as LoginDto);
-            login(response.token);
-            enqueueSnackbar("Login successful!", { variant: "success" });
-        } catch (err) {}
+        console.log(error);
+        await login(data);
     };
 
     return (
@@ -98,7 +90,7 @@ export const LoginForm = () => {
                     }}
                 />
 
-                {error && <Alert severity="error">{error.errors.join(", ")}</Alert>}
+                {/* {error && <Alert severity="error">{error.errors.join(", ")}</Alert>} */}
 
                 <Button
                     variant="contained"

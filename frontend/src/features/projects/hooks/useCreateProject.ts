@@ -1,4 +1,4 @@
-import { QueryClient, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { projectKeys } from "./projectKeys";
 import { enqueueSnackbar } from "notistack";
 import { projectApi } from "../api/projectApi";
@@ -22,6 +22,6 @@ export const useCreateProject = () => {
 
     return {
         ...mutation,
-        createProject: mutation.mutateAsync,
+        createProject: mutation.mutate,
     };
 };

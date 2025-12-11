@@ -1,4 +1,5 @@
-import axios from "axios";
+import axios, { AxiosError } from "axios";
+import { ErrorResponseDto } from "./types/errorResponseDto";
 
 const api = axios.create({
     baseURL: process.env.REACT_APP_API_URL,
@@ -15,5 +16,17 @@ api.interceptors.request.use((config) => {
     }
     return config;
 });
+
+api.interceptors.response.use(
+    (response) => response,
+    (error: AxiosError<any>) => {
+        const errorResponse: ErrorResponseDto = {
+            status: error.response?.status || 500,
+            errors: error.response?.data?.errors || ["Unknown error occurred"],
+        };
+
+        return Promise.reject(errorResponse);
+    }
+);
 
 export default api;

@@ -1,8 +1,8 @@
 import { Dialog, DialogTitle, DialogContent, TextField, Button, Box, useTheme, alpha, Stack } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { CreateProjectDto, CreateProjectSchema } from "../features/projects/types/projectSchemas";
-import { useCreateProject } from "../features/projects/hooks/useCreateProject";
+import { CreateProjectDto, CreateProjectSchema } from "../types/projectSchemas";
+import { useCreateProject } from "../hooks/useCreateProject";
 
 interface CreateProjectDialogProps {
     open: boolean;
@@ -11,7 +11,7 @@ interface CreateProjectDialogProps {
 
 export function CreateProjectDialog({ open, onClose }: CreateProjectDialogProps) {
     const theme = useTheme();
-    const { isPending: loading, createProject } = useCreateProject();
+    const { isPending: loading, createProject, isError } = useCreateProject();
 
     const {
         register,
@@ -27,9 +27,8 @@ export function CreateProjectDialog({ open, onClose }: CreateProjectDialogProps)
         onClose();
     };
 
-    const onSubmit = async (data: CreateProjectDto) => {
-        await createProject({ name: data.name });
-        handleClose();
+    const onSubmit = (data: CreateProjectDto) => {
+        createProject(data, { onSuccess: handleClose });
     };
 
     return (
@@ -74,6 +73,7 @@ export function CreateProjectDialog({ open, onClose }: CreateProjectDialogProps)
                         </Button>
                         <Button
                             type="submit"
+                            loading={loading}
                             variant="contained"
                             sx={{
                                 fontWeight: "bold",
@@ -81,7 +81,7 @@ export function CreateProjectDialog({ open, onClose }: CreateProjectDialogProps)
                                 borderRadius: "8px",
                             }}
                         >
-                            {loading ? "Creating..." : "Create Project"}
+                            Create Project
                         </Button>
                     </Stack>
                 </Box>

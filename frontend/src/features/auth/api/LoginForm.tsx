@@ -3,7 +3,7 @@ import { Key, Email } from "@mui/icons-material";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { LoginDto, loginSchema } from "../../../schemas/authSchemas";
+import { LoginDto, loginSchema } from "../types/authSchemas";
 import { GlassCard } from "../../../components/ui/GlassCard";
 import { useLogin } from "../hooks/useLogin";
 
@@ -20,9 +20,8 @@ export const LoginForm = () => {
         resolver: zodResolver(loginSchema),
     });
 
-    const onSubmit = async (data: LoginDto) => {
-        console.log(error);
-        await login(data);
+    const onSubmit = (data: LoginDto) => {
+        login(data);
     };
 
     return (
@@ -90,7 +89,7 @@ export const LoginForm = () => {
                     }}
                 />
 
-                {/* {error && <Alert severity="error">{error.errors.join(", ")}</Alert>} */}
+                {error && <Alert severity="error">{error.errors.join("\n")}</Alert>}
 
                 <Button
                     variant="contained"

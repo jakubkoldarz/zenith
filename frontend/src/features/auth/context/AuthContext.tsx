@@ -1,9 +1,9 @@
 import { createContext, ReactNode } from "react";
-import { UserDto } from "../../../schemas/userSchemas";
+import { UserDto } from "../../users/types/userSchemas";
 import { useLogout } from "../hooks/useLogout";
 import { useLogin } from "../hooks/useLogin";
 import { useAuthUser } from "../hooks/useAuthUser";
-import { LoginDto } from "../../../schemas/authSchemas";
+import { LoginDto } from "../types/authSchemas";
 import { CircularProgress, Stack } from "@mui/material";
 
 interface AuthContextType {

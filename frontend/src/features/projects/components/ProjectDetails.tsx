@@ -15,6 +15,7 @@ import { ArrowBack, ErrorOutline, PersonAdd } from "@mui/icons-material";
 import { useProjectDetails } from "../hooks/useProjectDetails";
 import { useUpdateProject } from "../hooks/useUpdateProject";
 import EditBox from "../../../components/EditBox";
+import CategoriesView from "../../categories/components/CategoriesView";
 
 interface ProjectDetailsParams extends Record<string, string | undefined> {
     id: string;
@@ -25,10 +26,10 @@ export default function ProjectDetails() {
     const theme = useTheme();
     const navigate = useNavigate();
     const { project, isLoading, isError, refetch } = useProjectDetails(id!);
-    const { mutateAsync: updateProject, isPending: loadingUpdate } = useUpdateProject();
+    const { updateProject, isPending: loadingUpdate } = useUpdateProject();
 
-    const handleChangeProjectName = async (newName: string) => {
-        await updateProject({ id: id!, payload: { name: newName } });
+    const handleChangeProjectName = (newName: string) => {
+        updateProject({ id: id!, data: { name: newName } });
     };
     const handleRetry = () => {
         refetch();
@@ -44,7 +45,6 @@ export default function ProjectDetails() {
             </Backdrop>
         );
     }
-
     if (isError) {
         return (
             <Container maxWidth="sm">
@@ -103,12 +103,9 @@ export default function ProjectDetails() {
                         </Button>
                     </Toolbar>
                 </AppBar>
-                <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum neque, quo omnis ratione officia
-                    laboriosam odit? Ullam suscipit, dolor quisquam alias magnam natus sed fugit reiciendis culpa
-                    dolore, minima dolorem nobis error ratione aperiam voluptate asperiores assumenda nam ut? Pariatur
-                    obcaecati placeat dolore cupiditate officia autem perferendis magnam similique quasi.
-                </p>
+                <Box padding={4}>
+                    <CategoriesView projectId={project?.id!} />
+                </Box>
             </Stack>
         </>
     );

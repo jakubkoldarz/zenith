@@ -1,6 +1,6 @@
 import api from "../../../api";
-import { AuthResponseDto, LoginDto, RegisterDto } from "../../../schemas/authSchemas";
-import { UserDto } from "../../../schemas/userSchemas";
+import { AuthResponseDto, LoginDto, RegisterDto } from "../types/authSchemas";
+import { UserDto } from "../../users/types/userSchemas";
 
 const loginUser = async (data: LoginDto): Promise<AuthResponseDto> => {
     const response = await api.post<AuthResponseDto>("/auth/login", data);

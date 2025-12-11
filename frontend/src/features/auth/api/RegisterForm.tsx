@@ -4,14 +4,14 @@ import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { enqueueSnackbar } from "notistack";
-import { RegisterDto, registerSchema } from "../../../schemas/authSchemas";
+import { RegisterDto, registerSchema } from "../types/authSchemas";
 import { GlassCard } from "../../../components/ui/GlassCard";
 import { useRegister } from "../hooks/useRegister";
 
 export const RegisterForm = () => {
     const theme = useTheme();
     const iconColor = theme.palette.primary.light;
-    const { register: registerUser, isPending: loading } = useRegister();
+    const { register: registerUser, isPending: loading, error } = useRegister();
 
     const {
         register,
@@ -21,8 +21,8 @@ export const RegisterForm = () => {
         resolver: zodResolver(registerSchema),
     });
 
-    const onSubmit = async (data: RegisterDto) => {
-        await registerUser(data);
+    const onSubmit = (data: RegisterDto) => {
+        registerUser(data);
     };
 
     return (

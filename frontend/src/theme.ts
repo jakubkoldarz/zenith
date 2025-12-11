@@ -1,12 +1,13 @@
 import { createTheme } from "@mui/material/styles";
+import { Extend } from "zod/v4/core/util.cjs";
 
 export const theme = createTheme({
     palette: {
         mode: "dark",
 
         primary: {
-            main: "#490eadff",
-            light: "#4b21caff",
+            main: "#6c1ef4ff",
+            light: "#5928ecff",
             dark: "#5b21b6",
             contrastText: "#ffffff",
         },
@@ -38,6 +39,11 @@ export const theme = createTheme({
             editor: "#2962FF",
             viewer: "#00695C",
         },
+
+        glass: {
+            background: "rgba(255, 255, 255, 0.09)",
+            text: "rgba(255, 255, 255, 0.8)",
+        },
     },
 
     typography: {
@@ -56,6 +62,11 @@ export const theme = createTheme({
 
 declare module "@mui/material/styles" {
     interface Palette {
+        glass: {
+            background: string;
+            text: string;
+        };
+
         roles: {
             owner: string;
             editor: string;
@@ -64,6 +75,11 @@ declare module "@mui/material/styles" {
     }
 
     interface PaletteOptions {
+        glass?: {
+            background?: string;
+            text?: string;
+        };
+
         roles?: {
             owner?: string;
             editor?: string;

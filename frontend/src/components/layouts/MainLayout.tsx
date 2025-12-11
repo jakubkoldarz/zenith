@@ -2,7 +2,7 @@ import { Outlet } from "react-router-dom";
 import AppHeader from "../AppHeader";
 import { Grid } from "@mui/material";
 import SideMenu from "../SideMenu";
-import { CreateProjectDialog } from "../CreateProjectDialog";
+import { CreateProjectDialog } from "../../features/projects/components/CreateProjectDialog";
 import { ProjectDto, UpdateProjectDto } from "../../features/projects/types/projectSchemas";
 import { useState } from "react";
 

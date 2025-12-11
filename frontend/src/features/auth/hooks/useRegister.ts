@@ -2,7 +2,6 @@ import { useMutation } from "@tanstack/react-query";
 import { authApi } from "../api/authApi";
 import { enqueueSnackbar } from "notistack";
 import { useNavigate } from "react-router-dom";
-import { ErrorResponseDto } from "../../../types/errorResponseDto";
 
 export const useRegister = () => {
     const navigate = useNavigate();
@@ -20,6 +19,6 @@ export const useRegister = () => {
 
     return {
         ...mutation,
-        register: mutation.mutateAsync,
+        register: mutation.mutate,
     };
 };

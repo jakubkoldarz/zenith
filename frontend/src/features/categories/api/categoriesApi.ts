@@ -32,7 +32,7 @@ const updateCategory = async (categoryId: string, data: UpdateCategoryDto): Prom
 };
 
 const reorderCategory = async (categoryId: string, data: ReorderCategoryDto): Promise<void> => {
-    await api.post<void>(`/categories/${categoryId}/reorder`, data);
+    await api.patch<void>(`/categories/${categoryId}/reorder`, data);
 };
 
 export const categoriesApi = {

@@ -23,7 +23,7 @@ export const UpdateCategorySchema = CategorySchema.pick({
 
 export const ReorderCategorySchema = CategorySchema.pick({
     order: true,
-}).array();
+});
 
 export type CategoryDto = z.infer<typeof CategorySchema>;
 export type CategoryWithTasksDto = z.infer<typeof CategoryWithTasksSchema>;

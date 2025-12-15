@@ -6,6 +6,7 @@ import { GlassButton } from "../../../components/ui/GlassButton";
 import { CreateCategoryDialog } from "./CreateCategoryDialog";
 import { useState } from "react";
 import useCategories from "../hooks/useCategories";
+import { Droppable } from "@hello-pangea/dnd";
 
 export default function CategoriesView({ projectId }: { projectId: string }) {
     const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
@@ -14,8 +15,6 @@ export default function CategoriesView({ projectId }: { projectId: string }) {
     function handleCreateCategory() {
         setIsCreateDialogOpen(true);
     }
-
-    console.log("CategoriesView render", categories);
 
     if (isLoading) {
         return <CircularProgress />;
@@ -31,29 +30,36 @@ export default function CategoriesView({ projectId }: { projectId: string }) {
 
     return (
         <>
-            <Stack
-                direction="row"
-                sx={{
-                    height: "100%",
-                    gap: 2,
-                    alignItems: "flex-start",
-                    paddingRight: 6,
-                    width: "fit-content",
-                }}
-            >
-                {categories.map((category) => {
-                    return <CategoryView key={category.id} category={category} />;
-                })}
-                <GlassButton
-                    onClick={handleCreateCategory}
-                    variant="contained"
-                    sx={{ height: "fit-content", minWidth: "250px", justifyContent: "left", flexShrink: 0 }}
-                    color="primary"
-                    startIcon={<Add />}
-                >
-                    Add Task Category
-                </GlassButton>
-            </Stack>
+            <Droppable droppableId="categories" type="CATEGORY" direction="horizontal">
+                {(provided) => (
+                    <Stack
+                        ref={provided.innerRef}
+                        {...provided.droppableProps}
+                        direction="row"
+                        sx={{
+                            height: "100%",
+                            gap: 2,
+                            alignItems: "flex-start",
+                            paddingRight: 6,
+                            width: "fit-content",
+                        }}
+                    >
+                        {categories.map((category, index) => (
+                            <CategoryView key={category.id} category={category} index={index} />
+                        ))}
+                        {provided.placeholder}
+                        <GlassButton
+                            onClick={handleCreateCategory}
+                            variant="contained"
+                            sx={{ height: "fit-content", minWidth: "250px", justifyContent: "left", flexShrink: 0 }}
+                            color="primary"
+                            startIcon={<Add />}
+                        >
+                            Add Task Category
+                        </GlassButton>
+                    </Stack>
+                )}
+            </Droppable>
             <CreateCategoryDialog
                 projectId={projectId}
                 open={isCreateDialogOpen}

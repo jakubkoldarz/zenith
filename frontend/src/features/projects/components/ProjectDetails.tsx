@@ -17,6 +17,9 @@ import { useUpdateProject } from "../hooks/useUpdateProject";
 import EditBox from "../../../components/EditBox";
 import CategoriesView from "../../categories/components/CategoriesView";
 import { getScrollbarStyles } from "../../../components/ui/Scrollbar";
+import { DragDropContext, DropResult } from "@hello-pangea/dnd";
+import useMoveTask from "../../tasks/hooks/useMoveTask";
+import useReorderCategory from "../../categories/hooks/useReorderCategory";
 
 interface ProjectDetailsParams extends Record<string, string | undefined> {
     id: string;
@@ -28,12 +31,45 @@ export default function ProjectDetails() {
     const navigate = useNavigate();
     const { project, isLoading, isError, refetch } = useProjectDetails(id!);
     const { updateProject, isPending: loadingUpdate } = useUpdateProject();
+    const { mutate: moveTask } = useMoveTask(project?.id!);
+    const { mutate: reorderCategory } = useReorderCategory(project?.id!);
 
     const handleChangeProjectName = (newName: string) => {
         updateProject({ id: id!, data: { name: newName } });
     };
+
     const handleRetry = () => {
         refetch();
+    };
+
+    const handleDragEnd = (result: DropResult) => {
+        const { source, destination, draggableId, type } = result;
+
+        if (!destination) return;
+
+        if (source.droppableId === destination.droppableId && source.index === destination.index) {
+            return;
+        }
+
+        if (type === "CATEGORY") {
+            reorderCategory({
+                categoryId: draggableId,
+                newOrder: destination.index,
+            });
+            return;
+        }
+
+        // Handle TASK movement
+        if (type === "TASK") {
+            moveTask({
+                taskId: draggableId,
+                data: {
+                    order: destination.index,
+                    categoryId: destination.droppableId,
+                },
+                sourceCategoryId: source.droppableId,
+            });
+        }
     };
 
     if (isLoading) {
@@ -85,7 +121,7 @@ export default function ProjectDetails() {
     }
 
     return (
-        <>
+        <DragDropContext onDragEnd={handleDragEnd}>
             <Stack
                 direction="column"
                 borderRadius={2}
@@ -115,6 +151,6 @@ export default function ProjectDetails() {
                     <CategoriesView projectId={project?.id!} />
                 </Box>
             </Stack>
-        </>
+        </DragDropContext>
     );
 }

@@ -16,11 +16,13 @@ import { useRef, useState } from "react";
 import useAuth from "../features/auth/hooks/useAuth";
 import { Add } from "@mui/icons-material";
 import ProjectSearch from "../features/projects/components/ProjectSearch";
+import { useNavigate } from "react-router-dom";
 
 export default function AppHeader({ onOpenCreateDialog }: { onOpenCreateDialog: () => void }) {
     const [menuAnchor, setMenuAnchor] = useState<HTMLElement | null>(null);
     const userAvatarButton = useRef<HTMLButtonElement | null>(null);
     const { logout } = useAuth();
+    const navigate = useNavigate();
 
     const handleOpenModal = () => {
         onOpenCreateDialog();
@@ -60,7 +62,8 @@ export default function AppHeader({ onOpenCreateDialog }: { onOpenCreateDialog: 
                         anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
                         transformOrigin={{ vertical: "top", horizontal: "right" }}
                     >
-                        <MenuItem>Profile</MenuItem>
+                        <MenuItem onClick={() => navigate("/profile")}>Profile</MenuItem>
+                        <MenuItem onClick={() => navigate("/projects")}>Projects</MenuItem>
                         <MenuItem onClick={logout}>Logout</MenuItem>
                     </Menu>
                 </Box>

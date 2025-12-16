@@ -9,9 +9,11 @@ import { Droppable } from "@hello-pangea/dnd";
 export default function TasksView({
     category,
     onSelect,
+    canEdit,
 }: {
     category: CategoryDto;
     onSelect: (task: TaskDto) => void;
+    canEdit: boolean;
 }) {
     const { tasks } = useCategoryTasks(category.projectId, category.id);
     const theme = useTheme();
@@ -33,7 +35,7 @@ export default function TasksView({
                         ...getScrollbarStyles(theme),
                     }}
                 >
-                    {isEmpty && !snapshot.isDraggingOver && (
+                    {isEmpty && !snapshot.isDraggingOver && canEdit && (
                         <Box
                             sx={{
                                 display: "flex",
@@ -59,6 +61,7 @@ export default function TasksView({
                             index={index}
                             projectId={category.projectId}
                             onClick={onSelect}
+                            canEdit={canEdit}
                         />
                     ))}
                     {provided.placeholder}

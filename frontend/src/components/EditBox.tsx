@@ -1,7 +1,15 @@
 import { Box, InputBase, Typography } from "@mui/material";
 import { Activity, useEffect, useRef, useState } from "react";
 
-export default function EditBox({ value, onSetValue }: { value?: string; onSetValue: (value: string) => void }) {
+export default function EditBox({
+    value,
+    onSetValue,
+    disabled = false,
+}: {
+    value?: string;
+    onSetValue: (value: string) => void;
+    disabled?: boolean;
+}) {
     const [editing, setEditing] = useState<boolean>(false);
     const inputRef = useRef<HTMLInputElement>(null);
 
@@ -39,13 +47,13 @@ export default function EditBox({ value, onSetValue }: { value?: string; onSetVa
         <>
             <Activity mode={editing ? "hidden" : "visible"}>
                 <Box
-                    onClick={() => setEditing(true)}
+                    onClick={disabled ? undefined : () => setEditing(true)}
                     sx={{
                         px: 1,
                         borderRadius: 1,
-                        cursor: "pointer",
+                        cursor: disabled ? "default" : "pointer",
                         "&:hover": {
-                            background: "rgba(255, 255, 255, 0.2)",
+                            background: disabled ? "transparent" : "rgba(255, 255, 255, 0.2)",
                         },
                     }}
                 >

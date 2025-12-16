@@ -11,7 +11,7 @@ import {
     Typography,
     useTheme,
 } from "@mui/material";
-import { ArrowBack, ErrorOutline, PersonAdd } from "@mui/icons-material";
+import { ArrowBack, ErrorOutline, Group, PersonAdd } from "@mui/icons-material";
 import { useProjectDetails } from "../hooks/useProjectDetails";
 import { useUpdateProject } from "../hooks/useUpdateProject";
 import EditBox from "../../../components/EditBox";
@@ -20,6 +20,11 @@ import { getScrollbarStyles } from "../../../components/ui/Scrollbar";
 import { DragDropContext, DropResult } from "@hello-pangea/dnd";
 import useMoveTask from "../../tasks/hooks/useMoveTask";
 import useReorderCategory from "../../categories/hooks/useReorderCategory";
+import { useState } from "react";
+import { SearchUserDialog } from "../../users/components/SearchUserDialog";
+import { useProjectRole } from "../hooks/useProjectRole";
+import { ProjectMembersDialog } from "./ProjectMembersDialog";
+import { ProjectRole } from "../../../types/projectRoles";
 
 interface ProjectDetailsParams extends Record<string, string | undefined> {
     id: string;
@@ -29,7 +34,11 @@ export default function ProjectDetails() {
     const { id } = useParams<ProjectDetailsParams>();
     const theme = useTheme();
     const navigate = useNavigate();
+    const [openShareDialog, setOpenShareDialog] = useState(false);
+    const [openMembersDialog, setOpenMembersDialog] = useState(false);
     const { project, isLoading, isError, refetch } = useProjectDetails(id!);
+    const { canEdit } = useProjectRole(project?.role);
+    const isOwner = project?.role === ProjectRole.Owner;
     const { updateProject, isPending: loadingUpdate } = useUpdateProject();
     const { mutate: moveTask } = useMoveTask(project?.id!);
     const { mutate: reorderCategory } = useReorderCategory(project?.id!);
@@ -59,7 +68,6 @@ export default function ProjectDetails() {
             return;
         }
 
-        // Handle TASK movement
         if (type === "TASK") {
             moveTask({
                 taskId: draggableId,
@@ -121,7 +129,7 @@ export default function ProjectDetails() {
     }
 
     return (
-        <DragDropContext onDragEnd={handleDragEnd}>
+        <DragDropContext onDragEnd={canEdit ? handleDragEnd : () => {}}>
             <Stack
                 direction="column"
                 borderRadius={2}
@@ -134,12 +142,28 @@ export default function ProjectDetails() {
             >
                 <AppBar position="static" sx={{ backgroundColor: "rgba(0,0,0,0.6)" }}>
                     <Toolbar>
-                        <EditBox value={project?.name} onSetValue={handleChangeProjectName} />
+                        <EditBox value={project?.name} onSetValue={handleChangeProjectName} disabled={!canEdit} />
                         {loadingUpdate && <CircularProgress color="inherit" size={24} />}
                         <Box flexGrow={1} />
-                        <Button variant="contained" startIcon={<PersonAdd />}>
-                            Share Project
-                        </Button>
+                        <Stack direction="row" spacing={2}>
+                            <Button
+                                variant="contained"
+                                color="secondary"
+                                startIcon={<Group />}
+                                onClick={() => setOpenMembersDialog(true)}
+                            >
+                                Members
+                            </Button>
+                            {isOwner && (
+                                <Button
+                                    variant="contained"
+                                    startIcon={<PersonAdd />}
+                                    onClick={() => setOpenShareDialog(true)}
+                                >
+                                    Share Project
+                                </Button>
+                            )}
+                        </Stack>
                     </Toolbar>
                 </AppBar>
                 <Box
@@ -148,9 +172,22 @@ export default function ProjectDetails() {
                     paddingRight={0}
                     sx={{ flexGrow: 1, overflowX: "auto", overflowY: "hidden" }}
                 >
-                    <CategoriesView projectId={project?.id!} />
+                    <CategoriesView projectId={project?.id!} canEdit={canEdit} />
                 </Box>
             </Stack>
+            <ProjectMembersDialog
+                open={openMembersDialog}
+                projectId={project?.id!}
+                onClose={() => setOpenMembersDialog(false)}
+                canEdit={isOwner}
+            />
+            {isOwner && (
+                <SearchUserDialog
+                    open={openShareDialog}
+                    projectId={project?.id!}
+                    onClose={() => setOpenShareDialog(false)}
+                />
+            )}
         </DragDropContext>
     );
 }

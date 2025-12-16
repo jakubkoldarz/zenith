@@ -21,14 +21,14 @@ export default function MainLayout() {
             <AppHeader onOpenCreateDialog={() => setOpenCreateDialog(true)} />
             <Grid container spacing={2} sx={{ flexGrow: 1, p: 2, overflow: "hidden" }}>
                 <Grid
-                    size={{ xs: 12, md: 3, lg: 2 }}
-                    display="flex"
+                    size={{ xs: 0, md: 3, lg: 2 }}
+                    display={{ xs: "none", md: "flex" }}
                     justifyContent="center"
                     sx={{ height: "100%", overflowY: "auto" }}
                 >
                     <SideMenu />
                 </Grid>
-                <Grid size={{ xs: 12, md: 9, lg: 10 }} sx={{ height: "100%", overflow: "hidden" }}>
+                <Grid size={{ xs: 12, md: 9, lg: 10 }} sx={{ height: "100%", overflowY: "auto" }}>
                     <Outlet />
                 </Grid>
             </Grid>

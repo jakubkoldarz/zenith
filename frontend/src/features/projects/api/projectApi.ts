@@ -1,5 +1,13 @@
 import api from "../../../api";
-import { CreateProjectDto, ProjectDto, ProjectWithCategoriesDto, UpdateProjectDto } from "../types/projectSchemas";
+import { UserWithRoleDto } from "../../users/types/userSchemas";
+import {
+    AssignProjectRoleDto,
+    CreateProjectDto,
+    ProjectDto,
+    ProjectWithCategoriesDto,
+    RevokeAccessDto,
+    UpdateProjectDto,
+} from "../types/projectSchemas";
 
 const getProjects = async (): Promise<ProjectDto[]> => {
     const response = await api.get<ProjectDto[]>("/projects");
@@ -25,10 +33,26 @@ const deleteProject = async (id: string): Promise<void> => {
     await api.delete(`/projects/${id}`);
 };
 
+const assingUserToProject = async (data: AssignProjectRoleDto): Promise<void> => {
+    await api.put(`/projects/${data.projectId}/assign`, { userId: data.userId, role: data.role });
+};
+
+const getProjectMembers = async (projectId: string): Promise<UserWithRoleDto[]> => {
+    const response = await api.get<UserWithRoleDto[]>(`/projects/${projectId}/members`);
+    return response.data;
+};
+
+const revokeAccess = async (data: RevokeAccessDto): Promise<void> => {
+    await api.put(`/projects/${data.projectId}/revoke`, { userId: data.userId });
+};
+
 export const projectApi = {
     getOne: getProjectDetails,
     getAll: getProjects,
     create: createProject,
     update: updateProject,
     delete: deleteProject,
+    assign: assingUserToProject,
+    revoke: revokeAccess,
+    getMembers: getProjectMembers,
 };

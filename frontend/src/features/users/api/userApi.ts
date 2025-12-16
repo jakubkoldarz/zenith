@@ -1,9 +1,11 @@
 import api from "../../../api";
-import { AuthResponseDto, LoginDto } from "../../auth/types/authSchemas";
-import { UserDto } from "../types/userSchemas";
+import { SearchUserDto, UserDto } from "../types/userSchemas";
 
-const getUsers = async (): Promise<UserDto[]> => {
-    const response = await api.get<UserDto[]>("/users");
+const getUsers = async (query: string | null): Promise<UserDto[]> => {
+    if (query === null || query.trim() === "" || query.length < 3) {
+        return [];
+    }
+    const response = await api.get<UserDto[]>(`/users?search=${query}`);
     return response.data;
 };
 
@@ -13,6 +15,6 @@ const getUser = async (id: string): Promise<UserDto> => {
 };
 
 export const userApi = {
-    getAll: getUsers,
+    search: getUsers,
     getOne: getUser,
 };

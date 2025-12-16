@@ -13,7 +13,15 @@ import { TaskDto } from "../../tasks/types/tasksSchemas";
 import { Draggable } from "@hello-pangea/dnd";
 import useDeleteCategory from "../hooks/useDeleteCategory";
 
-export default function CategoryView({ category, index }: { category: CategoryDto; index: number }) {
+export default function CategoryView({
+    category,
+    index,
+    canEdit,
+}: {
+    category: CategoryDto;
+    index: number;
+    canEdit: boolean;
+}) {
     const [openUpdate, setOpenUpdate] = useState<boolean>(false);
     const [openCreate, setOpenCreate] = useState<boolean>(false);
     const [selectedTask, setSelectedTask] = useState<TaskDto | null>(null);
@@ -54,7 +62,7 @@ export default function CategoryView({ category, index }: { category: CategoryDt
 
     return (
         <>
-            <Draggable draggableId={category.id} index={index}>
+            <Draggable draggableId={category.id} index={index} isDragDisabled={!canEdit}>
                 {(provided, snapshot) => (
                     <Stack
                         ref={provided.innerRef}
@@ -75,60 +83,68 @@ export default function CategoryView({ category, index }: { category: CategoryDt
                         spacing={2}
                     >
                         <Stack direction="row" alignItems="center" gap={1} flexShrink={0}>
-                            <Box flexGrow={1} {...provided.dragHandleProps}>
-                                <EditBox value={category.name} onSetValue={handleSetName} />
+                            <Box flexGrow={1} {...(canEdit ? provided.dragHandleProps : {})}>
+                                <EditBox value={category.name} onSetValue={handleSetName} disabled={!canEdit} />
                             </Box>
-                            <IconButton
-                                size="small"
-                                onClick={handleMenuOpen}
-                                sx={{
-                                    opacity: 0.7,
-                                    "&:hover": { opacity: 1 },
-                                }}
-                            >
-                                <MoreVert fontSize="small" />
-                            </IconButton>
+                            {canEdit && (
+                                <IconButton
+                                    size="small"
+                                    onClick={handleMenuOpen}
+                                    sx={{
+                                        opacity: 0.7,
+                                        "&:hover": { opacity: 1 },
+                                    }}
+                                >
+                                    <MoreVert fontSize="small" />
+                                </IconButton>
+                            )}
                         </Stack>
                         <Divider sx={{ paddingBottom: 1, marginTop: "0 !important", paddingTop: 0 }} />
 
                         <Stack direction="column" sx={{ overflowY: "auto", minHeight: 0, flexGrow: 1 }}>
-                            <TasksView onSelect={handleSelectTask} category={category} />
+                            <TasksView onSelect={handleSelectTask} category={category} canEdit={canEdit} />
                         </Stack>
 
                         {tasks.length > 0 && <Divider />}
-                        <GlassButton
-                            onClick={() => setOpenCreate(true)}
-                            color="inherit"
-                            size="small"
-                            startIcon={<Add />}
-                        >
-                            Add Task
-                        </GlassButton>
+                        {canEdit && (
+                            <GlassButton
+                                onClick={() => setOpenCreate(true)}
+                                color="inherit"
+                                size="small"
+                                startIcon={<Add />}
+                            >
+                                Add Task
+                            </GlassButton>
+                        )}
                     </Stack>
                 )}
             </Draggable>
-            <CreateTaskDialog
-                categoryId={category.id}
-                projectId={category.projectId}
-                open={openCreate}
-                onClose={() => setOpenCreate(false)}
-            />
-            <UpdateTaskDialog
-                key={selectedTask?.id || "new"}
-                open={openUpdate}
-                onClose={() => {
-                    setOpenUpdate(false);
-                    setSelectedTask(null);
-                }}
-                task={selectedTask}
-                projectId={category.projectId}
-            />
-            <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleMenuClose}>
-                <MenuItem onClick={handleDelete} sx={{ color: "error.main" }}>
-                    <Delete fontSize="small" sx={{ mr: 1 }} />
-                    Delete Category
-                </MenuItem>
-            </Menu>
+            {canEdit && (
+                <>
+                    <CreateTaskDialog
+                        categoryId={category.id}
+                        projectId={category.projectId}
+                        open={openCreate}
+                        onClose={() => setOpenCreate(false)}
+                    />
+                    <UpdateTaskDialog
+                        key={selectedTask?.id || "new"}
+                        open={openUpdate}
+                        onClose={() => {
+                            setOpenUpdate(false);
+                            setSelectedTask(null);
+                        }}
+                        task={selectedTask}
+                        projectId={category.projectId}
+                    />
+                    <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleMenuClose}>
+                        <MenuItem onClick={handleDelete} sx={{ color: "error.main" }}>
+                            <Delete fontSize="small" sx={{ mr: 1 }} />
+                            Delete Category
+                        </MenuItem>
+                    </Menu>
+                </>
+            )}
         </>
     );
 }

@@ -5,7 +5,7 @@ import { CategoryWithTasksSchema } from "../../categories/types/categoriesSchema
 export const ProjectSchema = z.object({
     id: z.uuid(),
     name: z.string().min(1, "Project name is required"),
-    role: z.enum(Object.values(ProjectRole)),
+    role: z.nativeEnum(ProjectRole),
 });
 
 export const ProjectWithCategoriesSchema = ProjectSchema.extend({
@@ -19,7 +19,12 @@ export const UpdateProjectSchema = ProjectSchema.pick({
     name: true,
 });
 export const AssignProjectRoleSchema = z.object({
-    role: z.enum(Object.values(ProjectRole)),
+    projectId: z.string(),
+    role: z.nativeEnum(ProjectRole),
+    userId: z.string(),
+});
+export const RevokeAccessSchema = z.object({
+    projectId: z.string(),
     userId: z.string(),
 });
 
@@ -27,3 +32,5 @@ export type ProjectDto = z.infer<typeof ProjectSchema>;
 export type ProjectWithCategoriesDto = z.infer<typeof ProjectWithCategoriesSchema>;
 export type CreateProjectDto = z.infer<typeof CreateProjectSchema>;
 export type UpdateProjectDto = z.infer<typeof UpdateProjectSchema>;
+export type AssignProjectRoleDto = z.infer<typeof AssignProjectRoleSchema>;
+export type RevokeAccessDto = z.infer<typeof RevokeAccessSchema>;

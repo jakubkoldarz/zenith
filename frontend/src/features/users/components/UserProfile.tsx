@@ -1,42 +1,33 @@
-import {
-    Box,
-    Grid,
-    Paper,
-    Typography,
-    Avatar,
-    TextField,
-    Button,
-    Divider,
-    Stack,
-    useTheme,
-    alpha,
-} from "@mui/material";
-import EditIcon from "@mui/icons-material/Edit";
-import SecurityIcon from "@mui/icons-material/Security";
+import { Box, Grid, Paper, Typography, Avatar, Stack, useTheme, alpha, Container } from "@mui/material";
 import AssignmentIcon from "@mui/icons-material/Assignment";
 import GroupIcon from "@mui/icons-material/Group";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-
-const user = {
-    firstname: "Jan",
-    lastname: "Kowalski",
-    email: "jan.kowalski@zenith.app",
-    role: "OWNER",
-    joinedAt: "2023-11-01",
-};
-
-const projectsCount = 5;
+import EmailIcon from "@mui/icons-material/Email";
+import PersonIcon from "@mui/icons-material/Person";
+import useUserProfile from "../hooks/useUserProfile";
+import { useProjects } from "../../projects/hooks/useProjects";
 
 export default function UserProfile() {
     const theme = useTheme();
+    const { user, isLoading } = useUserProfile();
+    const { allProjects, sharedProjects, userProjects } = useProjects();
 
-    // Helper do inicjałów
-    const initials = `${user.firstname[0]}${user.lastname[0]}`.toUpperCase();
+    if (isLoading || !user) {
+        return (
+            <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", minHeight: "60vh" }}>
+                <Typography variant="h6" color="primary">
+                    Loading your profile...
+                </Typography>
+            </Box>
+        );
+    }
+
+    const initials = `${user.firstname[0]}${user?.lastname?.[0] || ""}`.toUpperCase();
 
     return (
-        <Box sx={{ flexGrow: 1, mt: 2 }}>
+        <Container maxWidth="lg" sx={{ py: 4 }}>
             <Grid container spacing={3}>
-                <Grid size={4}>
+                <Grid size={{ xs: 12, md: 4 }}>
                     <Paper
                         sx={{
                             p: 4,
@@ -92,13 +83,21 @@ export default function UserProfile() {
                     </Paper>
                 </Grid>
 
-                <Grid size={8}>
+                <Grid size={{ xs: 12, md: 8 }}>
                     <Grid container spacing={2} sx={{ mb: 3 }}>
-                        <StatCard label="Projekty" value={projectsCount} icon={<AssignmentIcon color="primary" />} />
-                        <StatCard label="Zadania" value="12" icon={<CheckCircleIcon color="secondary" />} />
                         <StatCard
-                            label="Zespół"
-                            value="3"
+                            label="Total Projects"
+                            value={allProjects.length}
+                            icon={<AssignmentIcon color="primary" />}
+                        />
+                        <StatCard
+                            label="Your Projects"
+                            value={userProjects.length}
+                            icon={<CheckCircleIcon color="secondary" />}
+                        />
+                        <StatCard
+                            label="Shared with You"
+                            value={sharedProjects.length}
                             icon={<GroupIcon sx={{ color: theme.palette.success.main }} />}
                         />
                     </Grid>
@@ -108,89 +107,58 @@ export default function UserProfile() {
                             p: 4,
                             borderRadius: "16px",
                             border: "1px solid rgba(255,255,255,0.05)",
+                            background: `linear-gradient(135deg, ${theme.palette.background.paper} 0%, ${alpha(
+                                theme.palette.background.default,
+                                0.5
+                            )} 100%)`,
                         }}
                     >
-                        <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mb: 3 }}>
-                            <Typography variant="h6" fontWeight="bold">
-                                Dane osobowe
-                            </Typography>
-                            <Button startIcon={<EditIcon />} size="small">
-                                Edytuj
-                            </Button>
-                        </Box>
+                        <Typography variant="h6" fontWeight="bold" sx={{ mb: 3 }}>
+                            Personal Information
+                        </Typography>
 
-                        <Grid container spacing={2}>
-                            <Grid size={6}>
-                                <TextField
-                                    fullWidth
-                                    label="Imię"
-                                    defaultValue={user.firstname}
-                                    variant="outlined"
-                                    InputProps={{ readOnly: true }} // Na razie tylko do odczytu
-                                />
-                            </Grid>
-                            <Grid size={6}>
-                                <TextField
-                                    fullWidth
-                                    label="Nazwisko"
-                                    defaultValue={user.lastname}
-                                    variant="outlined"
-                                    InputProps={{ readOnly: true }}
-                                />
-                            </Grid>
-                            <Grid size={12}>
-                                <TextField
-                                    fullWidth
-                                    label="Email"
-                                    defaultValue={user.email}
-                                    variant="outlined"
-                                    InputProps={{ readOnly: true }}
-                                />
-                            </Grid>
-                        </Grid>
-
-                        <Box sx={{ mt: 4 }}>
-                            <Typography variant="h6" fontWeight="bold" sx={{ mb: 2 }}>
-                                Bezpieczeństwo
-                            </Typography>
-                            <Button
-                                variant="outlined"
-                                color="error"
-                                startIcon={<SecurityIcon />}
-                                sx={{ borderRadius: "8px" }}
-                            >
-                                Zmień hasło
-                            </Button>
-                        </Box>
+                        <Stack spacing={3}>
+                            <InfoRow
+                                icon={<PersonIcon color="primary" />}
+                                label="Full Name"
+                                value={`${user.firstname} ${user.lastname || ""}`}
+                            />
+                            <InfoRow icon={<EmailIcon color="primary" />} label="Email Address" value={user.email} />
+                        </Stack>
                     </Paper>
                 </Grid>
             </Grid>
-        </Box>
+        </Container>
     );
 }
 
-// --- MAŁY KOMPONENT POMOCNICZY DO KAFELKÓW STATYSTYK ---
 function StatCard({ label, value, icon }: { label: string; value: string | number; icon: React.ReactNode }) {
     const theme = useTheme();
     return (
-        <Grid size={4}>
+        <Grid size={{ xs: 12, sm: 4 }}>
             <Paper
                 sx={{
-                    p: 2,
+                    p: 2.5,
                     display: "flex",
                     alignItems: "center",
                     gap: 2,
                     borderRadius: "12px",
-                    bgcolor: alpha(theme.palette.background.default, 0.5), // Ciemniejsze tło
+                    bgcolor: alpha(theme.palette.background.default, 0.5),
                     border: "1px solid rgba(255,255,255,0.05)",
+                    transition: "transform 0.2s, box-shadow 0.2s",
+                    "&:hover": {
+                        transform: "translateY(-4px)",
+                        boxShadow: `0 8px 24px ${alpha(theme.palette.primary.main, 0.2)}`,
+                    },
                 }}
             >
                 <Box
                     sx={{
                         p: 1.5,
-                        borderRadius: "8px",
+                        borderRadius: "10px",
                         bgcolor: alpha(theme.palette.background.paper, 1),
                         display: "flex",
+                        boxShadow: `0 4px 12px ${alpha(theme.palette.common.black, 0.1)}`,
                     }}
                 >
                     {icon}
@@ -199,7 +167,7 @@ function StatCard({ label, value, icon }: { label: string; value: string | numbe
                     <Typography
                         variant="caption"
                         color="text.secondary"
-                        sx={{ textTransform: "uppercase", fontWeight: "bold" }}
+                        sx={{ textTransform: "uppercase", fontWeight: "bold", letterSpacing: 0.5 }}
                     >
                         {label}
                     </Typography>
@@ -209,5 +177,43 @@ function StatCard({ label, value, icon }: { label: string; value: string | numbe
                 </Box>
             </Paper>
         </Grid>
+    );
+}
+
+function InfoRow({ icon, label, value }: { icon: React.ReactNode; label: string; value: string }) {
+    const theme = useTheme();
+    return (
+        <Box
+            sx={{
+                display: "flex",
+                alignItems: "center",
+                gap: 2,
+                p: 2,
+                borderRadius: "10px",
+                bgcolor: alpha(theme.palette.background.default, 0.3),
+                border: `1px solid ${alpha(theme.palette.common.white, 0.05)}`,
+            }}
+        >
+            <Box
+                sx={{
+                    p: 1,
+                    borderRadius: "8px",
+                    bgcolor: alpha(theme.palette.primary.main, 0.1),
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                }}
+            >
+                {icon}
+            </Box>
+            <Box sx={{ flex: 1 }}>
+                <Typography variant="caption" color="text.secondary" sx={{ fontWeight: "bold" }}>
+                    {label}
+                </Typography>
+                <Typography variant="body1" fontWeight="500">
+                    {value}
+                </Typography>
+            </Box>
+        </Box>
     );
 }

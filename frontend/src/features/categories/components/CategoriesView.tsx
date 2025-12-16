@@ -8,7 +8,7 @@ import { useState } from "react";
 import useCategories from "../hooks/useCategories";
 import { Droppable } from "@hello-pangea/dnd";
 
-export default function CategoriesView({ projectId }: { projectId: string }) {
+export default function CategoriesView({ projectId, canEdit }: { projectId: string; canEdit: boolean }) {
     const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
     const { categories, isLoading, isError } = useCategories(projectId);
 
@@ -25,7 +25,35 @@ export default function CategoriesView({ projectId }: { projectId: string }) {
     }
 
     if (!categories || categories.length === 0) {
-        return <Stack direction="row" sx={{ minHeight: "60vh" }}></Stack>;
+        return (
+            <>
+                <Stack direction="row" sx={{ minHeight: "60vh" }}>
+                    {canEdit && (
+                        <GlassButton
+                            onClick={handleCreateCategory}
+                            variant="contained"
+                            sx={{ height: "fit-content", minWidth: "250px", justifyContent: "left", flexShrink: 0 }}
+                            color="primary"
+                            startIcon={<Add />}
+                        >
+                            Add Task Category
+                        </GlassButton>
+                    )}
+                    {!canEdit && (
+                        <Typography variant="h6" color="text.secondary">
+                            No categories yet
+                        </Typography>
+                    )}
+                </Stack>
+                {canEdit && (
+                    <CreateCategoryDialog
+                        projectId={projectId}
+                        open={isCreateDialogOpen}
+                        onClose={() => setIsCreateDialogOpen(false)}
+                    />
+                )}
+            </>
+        );
     }
 
     return (
@@ -45,26 +73,30 @@ export default function CategoriesView({ projectId }: { projectId: string }) {
                         }}
                     >
                         {categories.map((category, index) => (
-                            <CategoryView key={category.id} category={category} index={index} />
+                            <CategoryView key={category.id} category={category} index={index} canEdit={canEdit} />
                         ))}
                         {provided.placeholder}
-                        <GlassButton
-                            onClick={handleCreateCategory}
-                            variant="contained"
-                            sx={{ height: "fit-content", minWidth: "250px", justifyContent: "left", flexShrink: 0 }}
-                            color="primary"
-                            startIcon={<Add />}
-                        >
-                            Add Task Category
-                        </GlassButton>
+                        {canEdit && (
+                            <GlassButton
+                                onClick={handleCreateCategory}
+                                variant="contained"
+                                sx={{ height: "fit-content", minWidth: "250px", justifyContent: "left", flexShrink: 0 }}
+                                color="primary"
+                                startIcon={<Add />}
+                            >
+                                Add Task Category
+                            </GlassButton>
+                        )}
                     </Stack>
                 )}
             </Droppable>
-            <CreateCategoryDialog
-                projectId={projectId}
-                open={isCreateDialogOpen}
-                onClose={() => setIsCreateDialogOpen(false)}
-            />
+            {canEdit && (
+                <CreateCategoryDialog
+                    projectId={projectId}
+                    open={isCreateDialogOpen}
+                    onClose={() => setIsCreateDialogOpen(false)}
+                />
+            )}
         </>
     );
 }

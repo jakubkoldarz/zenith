@@ -1,9 +1,8 @@
-import { Box, Typography, TextField, useTheme, Button, InputAdornment, Alert } from "@mui/material";
+import { Box, Typography, TextField, useTheme, Button, InputAdornment } from "@mui/material";
 import { Key, Email, Badge, Person } from "@mui/icons-material";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { enqueueSnackbar } from "notistack";
 import { RegisterDto, registerSchema } from "../types/authSchemas";
 import { GlassCard } from "../../../components/ui/GlassCard";
 import { useRegister } from "../hooks/useRegister";
@@ -11,7 +10,7 @@ import { useRegister } from "../hooks/useRegister";
 export const RegisterForm = () => {
     const theme = useTheme();
     const iconColor = theme.palette.primary.light;
-    const { register: registerUser, isPending: loading, error } = useRegister();
+    const { register: registerUser, isPending: loading } = useRegister();
 
     const {
         register,

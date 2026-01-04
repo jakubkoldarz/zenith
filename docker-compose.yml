@@ -36,11 +36,9 @@ services:
         ports:
             - "3000:3000"
         environment:
-            DATABASE_HOST: db-nest
-            DATABASE_PORT: 5432
-            DATABASE_USER: ${DB_USER}
-            DATABASE_PASSWORD: ${DB_PASSWORD}
-            DATABASE_NAME: ${DB_NAME}
+            DATABASE_URL: postgresql://${DB_USER}:${DB_PASSWORD}@db-nest:5432/${DB_NAME}?schema=public
+            JWT_SECRET: ${JWT_SECRET}
+            CORS_ORIGINS: ${CORS_ORIGINS:-http://localhost:3001,http://localhost:3000,http://localhost:8080}
         depends_on:
             - db-nest
         command: npm run start:dev
@@ -60,7 +58,7 @@ services:
         build:
             context: ./frontend
             args:
-                - REACT_APP_API_URL=http://localhost:8082/api
+                - REACT_APP_API_URL=http://localhost:3000/api/
         container_name: zenith_frontend
         restart: always
         ports:

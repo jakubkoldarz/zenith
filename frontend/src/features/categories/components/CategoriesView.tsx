@@ -1,5 +1,4 @@
 import { CircularProgress, Stack, Typography } from "@mui/material";
-import { CategoryWithTasksDto } from "../types/categoriesSchemas";
 import CategoryView from "./CategoryView";
 import { Add } from "@mui/icons-material";
 import { GlassButton } from "../../../components/ui/GlassButton";

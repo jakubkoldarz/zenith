@@ -1,4 +1,4 @@
-import { styled, useTheme } from "@mui/material/styles";
+import { styled } from "@mui/material/styles";
 import { Button } from "@mui/material";
 
 export const GlassButton = styled(Button)(({ theme }) => ({

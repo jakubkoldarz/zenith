@@ -11,7 +11,7 @@ interface CreateProjectDialogProps {
 
 export function CreateProjectDialog({ open, onClose }: CreateProjectDialogProps) {
     const theme = useTheme();
-    const { isPending: loading, createProject, isError } = useCreateProject();
+    const { isPending: loading, createProject } = useCreateProject();
 
     const {
         register,

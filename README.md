@@ -266,33 +266,142 @@ Role-based access control with three permission levels:
 
 ### Prerequisites
 
--   Node.js 18+
--   npm or yarn
--   Docker (optional, for containerized setup)
+-   **Docker** & **Docker Compose** (recommended)
+-   **Node.js 18+** (for local development without Docker)
+-   **npm** or **yarn**
 
-### Installation
+### Quick Start with Docker (Recommended)
 
-1. Clone the repository:
+The easiest way to run Zenith is using Docker Compose, which will set up:
+
+-   PostgreSQL database (port 5433)
+-   PgAdmin for database management (port 5051)
+-   NestJS backend (port 3000)
+-   React frontend (port 8080)
+
+**1. Clone the repository:**
 
 ```bash
 git clone https://github.com/jakubkoldarz/zenith.git
 cd zenith
 ```
 
-2. Install frontend dependencies:
+**2. Create environment file:**
+
+Create a `.env` file in the root directory:
+
+```env
+# Database Configuration
+DB_USER=zenith_user
+DB_PASSWORD=zenith_password
+DB_NAME=zenith_db
+
+# JWT Secret (use a strong random string in production)
+JWT_SECRET=secret-token
+
+# CORS Origins (comma-separated)
+CORS_ORIGINS=http://localhost:8080,http://localhost:3000,http://localhost:3001
+```
+
+**3. Start all services:**
+
+```bash
+docker-compose up -d
+```
+
+This will start:
+
+-   **Backend**: http://localhost:3000
+-   **Frontend**: http://localhost:8080
+-   **PgAdmin**: http://localhost:5051 (email: `admin@admin.com`, password: `admin`)
+-   **Database**: PostgreSQL on port 5433
+
+**4. Check if everything is running:**
+
+```bash
+docker-compose ps
+```
+
+**5. View logs (if needed):**
+
+```bash
+# All services
+docker-compose logs -f
+
+# Specific service
+docker-compose logs -f backend
+docker-compose logs -f frontend
+```
+
+**6. Stop the application:**
+
+```bash
+docker-compose down
+```
+
+**7. Stop and remove all data (including database):**
+
+```bash
+docker-compose down -v
+```
+
+### Local Development (Without Docker)
+
+If you prefer to run services individually:
+
+**Backend:**
+
+```bash
+cd backend
+npm install
+
+# Create .env file with DATABASE_URL, JWT_SECRET
+echo "DATABASE_URL=postgresql://user:password@localhost:5433/zenith_db" > .env
+echo "JWT_SECRET=your-secret-key" >> .env
+
+# Run Prisma migrations
+npx prisma migrate dev
+
+# Start backend
+npm run start:dev
+```
+
+**Frontend:**
 
 ```bash
 cd frontend
 npm install
-```
 
-3. Start the development server:
+# Create .env file
+echo "REACT_APP_API_URL=http://localhost:3000/api/" > .env
 
-```bash
+# Start frontend
 npm start
 ```
 
-4. Open [http://localhost:3000](http://localhost:3000) in your browser
+### Database Management
+
+**Access PgAdmin:**
+
+1. Open http://localhost:5051
+2. Login with:
+    - Email: `admin@admin.com`
+    - Password: `admin`
+3. Add new server:
+    - Name: Zenith
+    - Host: `db-nest` (or `localhost` if connecting from outside Docker)
+    - Port: `5432` (internal) or `5433` (external)
+    - Username: `zenith_user`
+    - Password: `zenith_password`
+
+**Run Prisma Studio (Database GUI):**
+
+```bash
+cd backend
+npx prisma studio
+```
+
+Opens on http://localhost:5555
 
 ---
 
@@ -307,11 +416,3 @@ This project is part of a university assignment.
 **Jakub Kołdarz**
 
 -   GitHub: [@jakubkoldarz](https://github.com/jakubkoldarz)
-
----
-
-## 🙏 Acknowledgments
-
--   Material UI team for the amazing component library
--   TanStack for the powerful Query library
--   React team for React 19

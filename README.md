@@ -192,13 +192,73 @@ zenith/
 
 ## 🗄️ Database Schema
 
-### Current Schema (C# Backend)
+The application uses **PostgreSQL** as its database with **Prisma ORM** for type-safe database access.
 
-_Database schema diagram will be added here_
+### Database Diagram
 
-### Future Schema (Prisma + PostgreSQL)
+![Database Schema](./screenshots/database_diagram.png)
 
-_Prisma schema diagram will be added here_
+### Database Relations
+
+#### **User** (Authentication & Identity)
+
+-   Stores user credentials and profile information
+-   Fields: `id`, `email` (unique), `firstname`, `lastname`, `password` (hashed)
+-   **Relations:**
+    -   One user can have many project memberships (`User` → `ProjectMembership`)
+
+#### **Project** (Project Container)
+
+-   Main organizational unit for tasks and categories
+-   Fields: `id`, `name`
+-   **Relations:**
+    -   One project has many memberships (`Project` → `ProjectMembership`)
+    -   One project has many categories (`Project` → `Category`)
+-   **Cascade Delete:** Deleting a project removes all related memberships and categories
+
+#### **ProjectMembership** (Access Control)
+
+-   Junction table managing user access to projects with role-based permissions
+-   Fields: `projectId`, `userId`, `role` (OWNER/EDITOR/VIEWER)
+-   **Composite Primary Key:** `(projectId, userId)` - ensures unique user-project combinations
+-   **Relations:**
+    -   Belongs to one project (`ProjectMembership` → `Project`)
+    -   Belongs to one user (`ProjectMembership` → `User`)
+-   **Cascade Delete:** Removing a user or project automatically removes the membership
+
+#### **Role Enum**
+
+Role-based access control with three permission levels:
+
+-   **OWNER**: Full control - can delete project, manage members, edit all content
+-   **EDITOR**: Can create, edit, and delete categories and tasks
+-   **VIEWER**: Read-only access to project content
+
+#### **Category** (Task Grouping)
+
+-   Organizes tasks into logical groups (e.g., "To Do", "In Progress", "Done")
+-   Fields: `id`, `name`, `projectId`, `order` (for custom sorting)
+-   **Relations:**
+    -   Belongs to one project (`Category` → `Project`)
+    -   One category has many tasks (`Category` → `Task`)
+-   **Cascade Delete:** Deleting a category removes all its tasks
+
+#### **Task** (Work Items)
+
+-   Individual work items within a category
+-   Fields: `id`, `title`, `description`, `categoryId`, `order`, `isCompleted`
+-   **Relations:**
+    -   Belongs to one category (`Task` → `Category`)
+-   **Cascade Delete:** Automatically removed when parent category is deleted
+
+### Key Database Features
+
+-   **UUID Primary Keys**: All entities use UUIDs for distributed system compatibility
+-   **Cascade Deletes**: Hierarchical deletion ensures data consistency
+-   **Composite Keys**: `ProjectMembership` uses composite key to prevent duplicate assignments
+-   **Unique Constraints**: Email addresses are unique across users
+-   **Ordered Lists**: Categories and tasks have `order` fields for custom sorting
+-   **Optional Fields**: Lastname and task description are nullable for flexibility
 
 ---
 
@@ -236,19 +296,7 @@ npm start
 
 ---
 
-## 📸 Screenshots
-
-### Dashboard
-
-### Project Details
-
-### Task Management
-
-### Drag & Drop
-
----
-
-## 📝 License
+## License
 
 This project is part of a university assignment.
 

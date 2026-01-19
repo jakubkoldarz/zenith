@@ -56,23 +56,54 @@ Zenith is designed as a scalable platform for project and task management, empha
 
 **Development Tools:**
 
--   [ESLint](https://eslint.org/) - Code linting
 -   [Prettier](https://prettier.io/) - Code formatting
--   React Testing Library - Component testing
 
 ### ⚙️ Backend
 
-**⚠️ Note:** Backend is currently being migrated from C# to NestJS.
+**Core Technologies:**
 
-**Target Technologies:**
+-   [NestJS 11](https://nestjs.com/) - Progressive Node.js framework built with TypeScript
+-   [TypeScript 5.7](https://www.typescriptlang.org/) - Type-safe backend development
+-   [Prisma 6.19](https://www.prisma.io/) - Next-generation ORM with type safety
+-   [PostgreSQL](https://www.postgresql.org/) - Robust relational database
+-   [Docker](https://www.docker.com/) - Containerization and deployment
 
--   [NestJS](https://nestjs.com/) - Progressive Node.js framework
--   [Prisma](https://www.prisma.io/) - Next-generation ORM
--   [PostgreSQL](https://www.postgresql.org/) - Relational database
--   [TypeScript](https://www.typescriptlang.org/) - Type-safe backend
--   Docker - Containerization
+**Authentication & Security:**
 
-**Status:** 🚧 Under Development
+-   [Passport.js](http://www.passportjs.org/) - Authentication middleware
+-   [Passport-JWT](https://github.com/mikenicholson/passport-jwt) - JWT authentication strategy
+-   [@nestjs/jwt](https://docs.nestjs.com/security/authentication) - JWT token generation and validation
+-   [bcrypt](https://github.com/kelektiv/node.bcrypt.js) - Password hashing and encryption
+
+**Validation & Transformation:**
+
+-   [class-validator](https://github.com/typestack/class-validator) - Decorator-based validation
+-   [class-transformer](https://github.com/typestack/class-transformer) - Object transformation and serialization
+-   [@nestjs/mapped-types](https://docs.nestjs.com/openapi/mapped-types) - DTO mapping utilities
+
+**Configuration & Environment:**
+
+-   [@nestjs/config](https://docs.nestjs.com/techniques/configuration) - Configuration management
+-   Environment variables (.env) - Secure credentials storage
+
+**Development Tools:**
+
+-   [ESLint](https://eslint.org/) - Code linting with TypeScript support
+-   [Prettier](https://prettier.io/) - Code formatting
+-   [Jest](https://jestjs.io/) - Unit and integration testing
+-   [Supertest](https://github.com/visionmedia/supertest) - HTTP endpoint testing
+-   [ts-jest](https://github.com/kulshekhar/ts-jest) - TypeScript support for Jest
+-   [@nestjs/testing](https://docs.nestjs.com/fundamentals/testing) - NestJS testing utilities
+
+**Architecture Patterns:**
+
+-   RESTful API design with `/api` prefix
+-   Module-based architecture (Auth, Projects, Tasks, Categories, Users)
+-   Custom guards for authentication and authorization
+-   Role-based access control (RBAC) with Owner/Editor/Viewer roles
+-   DTO pattern for request/response validation
+-   Service layer for business logic
+-   Prisma Client for database operations
 
 ---
 
@@ -252,9 +283,7 @@ frontend/
 
 ### Backend Architecture (NestJS + Prisma)
 
-#### **MVC Pattern Implementation**
-
-Zenith backend follows the **Model-View-Controller** pattern adapted for NestJS:
+#### **Implementation Pattern**
 
 -   **Models**: Defined in Prisma schema (`prisma/schema.prisma`)
 -   **Controllers**: Handle HTTP requests and route to services

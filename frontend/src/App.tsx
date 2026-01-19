@@ -40,8 +40,8 @@ function App() {
                 <CssBaseline />
                 <SnackbarProvider
                     maxSnack={5}
-                    anchorOrigin={{ vertical: "top", horizontal: "right" }}
-                    autoHideDuration={3000}
+                    anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+                    autoHideDuration={700}
                 >
                     <BrowserRouter>
                         <AuthProvider>

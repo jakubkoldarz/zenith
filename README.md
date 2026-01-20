@@ -10,14 +10,14 @@ Zenith is designed as a scalable platform for project and task management, empha
 
 ### ✨ Key Features
 
--   📋 **Project Management** - Create, organize, and manage multiple projects
--   📝 **Task Organization** - Drag-and-drop task management with categories
--   👥 **Team Collaboration** - Share projects with role-based access control (Owner/Editor/Viewer)
--   🎯 **Real-time Updates** - Optimistic UI updates with automatic rollback on errors
--   🔐 **Role-Based Access** - Granular permissions system (Owner, Editor, Viewer)
--   🎨 **Modern UI** - Beautiful, responsive interface with Material Design
--   🔄 **Drag & Drop** - Intuitive task and category reordering
--   📱 **Responsive Design** - Works seamlessly on desktop, tablet, and mobile
+- 📋 **Project Management** - Create, organize, and manage multiple projects
+- 📝 **Task Organization** - Drag-and-drop task management with categories
+- 👥 **Team Collaboration** - Share projects with role-based access control (Owner/Editor/Viewer)
+- 🎯 **Real-time Updates** - Optimistic UI updates with automatic rollback on errors
+- 🔐 **Role-Based Access** - Granular permissions system (Owner, Editor, Viewer)
+- 🎨 **Modern UI** - Beautiful, responsive interface with Material Design
+- 🔄 **Drag & Drop** - Intuitive task and category reordering
+- 📱 **Responsive Design** - Works seamlessly on desktop, tablet, and mobile
 
 ---
 
@@ -27,83 +27,83 @@ Zenith is designed as a scalable platform for project and task management, empha
 
 **Core Technologies:**
 
--   [React 19](https://react.dev/) - Latest version with enhanced performance
--   [TypeScript](https://www.typescriptlang.org/) - Type-safe JavaScript
--   [Material UI v7](https://mui.com/) - Modern component library
--   [Emotion](https://emotion.sh/) - CSS-in-JS styling
+- [React 19](https://react.dev/) - Latest version with enhanced performance
+- [TypeScript](https://www.typescriptlang.org/) - Type-safe JavaScript
+- [Material UI v7](https://mui.com/) - Modern component library
+- [Emotion](https://emotion.sh/) - CSS-in-JS styling
 
 **State Management & Data Fetching:**
 
--   [TanStack Query v5](https://tanstack.com/query/latest) - Powerful async state management
--   [Axios](https://axios-http.com/) - HTTP client with interceptors
--   Optimistic updates with automatic rollback
+- [TanStack Query v5](https://tanstack.com/query/latest) - Powerful async state management
+- [Axios](https://axios-http.com/) - HTTP client with interceptors
+- Optimistic updates with automatic rollback
 
 **Form Management:**
 
--   [React Hook Form](https://react-hook-form.com/) - Performant form library
--   [Zod](https://zod.dev/) - TypeScript-first schema validation
--   [@hookform/resolvers](https://github.com/react-hook-form/resolvers) - Validation integration
+- [React Hook Form](https://react-hook-form.com/) - Performant form library
+- [Zod](https://zod.dev/) - TypeScript-first schema validation
+- [@hookform/resolvers](https://github.com/react-hook-form/resolvers) - Validation integration
 
 **Routing & Navigation:**
 
--   [React Router v7](https://reactrouter.com/) - Declarative routing
+- [React Router v7](https://reactrouter.com/) - Declarative routing
 
 **UI/UX Libraries:**
 
--   [@hello-pangea/dnd](https://github.com/hello-pangea/dnd) - Drag and drop functionality
--   [Notistack](https://notistack.com/) - Toast notification system
--   Custom Glass morphism components
+- [@hello-pangea/dnd](https://github.com/hello-pangea/dnd) - Drag and drop functionality
+- [Notistack](https://notistack.com/) - Toast notification system
+- Custom Glass morphism components
 
 **Development Tools:**
 
--   [Prettier](https://prettier.io/) - Code formatting
+- [Prettier](https://prettier.io/) - Code formatting
 
 ### ⚙️ Backend
 
 **Core Technologies:**
 
--   [NestJS 11](https://nestjs.com/) - Progressive Node.js framework built with TypeScript
--   [TypeScript 5.7](https://www.typescriptlang.org/) - Type-safe backend development
--   [Prisma 6.19](https://www.prisma.io/) - Next-generation ORM with type safety
--   [PostgreSQL](https://www.postgresql.org/) - Robust relational database
--   [Docker](https://www.docker.com/) - Containerization and deployment
+- [NestJS 11](https://nestjs.com/) - Progressive Node.js framework built with TypeScript
+- [TypeScript 5.7](https://www.typescriptlang.org/) - Type-safe backend development
+- [Prisma 6.19](https://www.prisma.io/) - Next-generation ORM with type safety
+- [PostgreSQL](https://www.postgresql.org/) - Robust relational database
+- [Docker](https://www.docker.com/) - Containerization and deployment
 
 **Authentication & Security:**
 
--   [Passport.js](http://www.passportjs.org/) - Authentication middleware
--   [Passport-JWT](https://github.com/mikenicholson/passport-jwt) - JWT authentication strategy
--   [@nestjs/jwt](https://docs.nestjs.com/security/authentication) - JWT token generation and validation
--   [bcrypt](https://github.com/kelektiv/node.bcrypt.js) - Password hashing and encryption
+- [Passport.js](http://www.passportjs.org/) - Authentication middleware
+- [Passport-JWT](https://github.com/mikenicholson/passport-jwt) - JWT authentication strategy
+- [@nestjs/jwt](https://docs.nestjs.com/security/authentication) - JWT token generation and validation
+- [bcrypt](https://github.com/kelektiv/node.bcrypt.js) - Password hashing and encryption
 
 **Validation & Transformation:**
 
--   [class-validator](https://github.com/typestack/class-validator) - Decorator-based validation
--   [class-transformer](https://github.com/typestack/class-transformer) - Object transformation and serialization
--   [@nestjs/mapped-types](https://docs.nestjs.com/openapi/mapped-types) - DTO mapping utilities
+- [class-validator](https://github.com/typestack/class-validator) - Decorator-based validation
+- [class-transformer](https://github.com/typestack/class-transformer) - Object transformation and serialization
+- [@nestjs/mapped-types](https://docs.nestjs.com/openapi/mapped-types) - DTO mapping utilities
 
 **Configuration & Environment:**
 
--   [@nestjs/config](https://docs.nestjs.com/techniques/configuration) - Configuration management
--   Environment variables (.env) - Secure credentials storage
+- [@nestjs/config](https://docs.nestjs.com/techniques/configuration) - Configuration management
+- Environment variables (.env) - Secure credentials storage
 
 **Development Tools:**
 
--   [ESLint](https://eslint.org/) - Code linting with TypeScript support
--   [Prettier](https://prettier.io/) - Code formatting
--   [Jest](https://jestjs.io/) - Unit and integration testing
--   [Supertest](https://github.com/visionmedia/supertest) - HTTP endpoint testing
--   [ts-jest](https://github.com/kulshekhar/ts-jest) - TypeScript support for Jest
--   [@nestjs/testing](https://docs.nestjs.com/fundamentals/testing) - NestJS testing utilities
+- [ESLint](https://eslint.org/) - Code linting with TypeScript support
+- [Prettier](https://prettier.io/) - Code formatting
+- [Jest](https://jestjs.io/) - Unit and integration testing
+- [Supertest](https://github.com/visionmedia/supertest) - HTTP endpoint testing
+- [ts-jest](https://github.com/kulshekhar/ts-jest) - TypeScript support for Jest
+- [@nestjs/testing](https://docs.nestjs.com/fundamentals/testing) - NestJS testing utilities
 
 **Architecture Patterns:**
 
--   RESTful API design with `/api` prefix
--   Module-based architecture (Auth, Projects, Tasks, Categories, Users)
--   Custom guards for authentication and authorization
--   Role-based access control (RBAC) with Owner/Editor/Viewer roles
--   DTO pattern for request/response validation
--   Service layer for business logic
--   Prisma Client for database operations
+- RESTful API design with `/api` prefix
+- Module-based architecture (Auth, Projects, Tasks, Categories, Users)
+- Custom guards for authentication and authorization
+- Role-based access control (RBAC) with Owner/Editor/Viewer roles
+- DTO pattern for request/response validation
+- Service layer for business logic
+- Prisma Client for database operations
 
 ---
 
@@ -285,11 +285,11 @@ frontend/
 
 #### **Implementation Pattern**
 
--   **Models**: Defined in Prisma schema (`prisma/schema.prisma`)
--   **Controllers**: Handle HTTP requests and route to services
--   **Services**: Contain business logic and database operations
--   **Guards**: Implement authentication and authorization
--   **DTOs**: Define request/response data structures with validation
+- **Models**: Defined in Prisma schema (`prisma/schema.prisma`)
+- **Controllers**: Handle HTTP requests and route to services
+- **Services**: Contain business logic and database operations
+- **Guards**: Implement authentication and authorization
+- **DTOs**: Define request/response data structures with validation
 
 #### **Key Backend Components**
 
@@ -764,7 +764,7 @@ api.interceptors.response.use(
             window.location.href = "/login";
         }
         return Promise.reject(error);
-    }
+    },
 );
 ```
 
@@ -778,12 +778,12 @@ api.interceptors.response.use(
 
 The login interface features a modern glass morphism design with:
 
--   **Email and password authentication**
--   **Form validation** - Real-time error messages for invalid inputs
--   **JWT token-based authentication** - Secure session management
--   **Remember me functionality** - Persistent login sessions
--   **Registration link** - Easy access to create new account
--   **Responsive design** - Works seamlessly on all devices
+- **Email and password authentication**
+- **Form validation** - Real-time error messages for invalid inputs
+- **JWT token-based authentication** - Secure session management
+- **Remember me functionality** - Persistent login sessions
+- **Registration link** - Easy access to create new account
+- **Responsive design** - Works seamlessly on all devices
 
 ### 📊 Project Dashboard
 
@@ -791,13 +791,13 @@ The login interface features a modern glass morphism design with:
 
 The main dashboard provides a comprehensive overview of your projects:
 
--   **My Projects section** - Projects you own (full control)
--   **Shared Projects section** - Projects where you're a member
--   **Role badges** - Visual indicators showing your role (Owner/Editor/Viewer)
--   **Project statistics** - Quick view of tasks and progress
--   **Create project button** - Quickly add new projects
--   **Search functionality** - Filter projects by name
--   **Project cards** - Click to access full project details
+- **My Projects section** - Projects you own (full control)
+- **Shared Projects section** - Projects where you're a member
+- **Role badges** - Visual indicators showing your role (Owner/Editor/Viewer)
+- **Project statistics** - Quick view of tasks and progress
+- **Create project button** - Quickly add new projects
+- **Search functionality** - Filter projects by name
+- **Project cards** - Click to access full project details
 
 ### 📝 Kanban Board with Drag & Drop
 
@@ -805,11 +805,11 @@ The main dashboard provides a comprehensive overview of your projects:
 
 The intuitive Kanban board interface allows seamless task management:
 
--   **Drag & Drop functionality** - Reorder tasks within categories or move between them
--   **Multiple categories** - Organize tasks into custom columns (To Do, In Progress, Done, etc.)
--   **Task cards** - Display task title, description, and status
--   **Category management** - Add, rename, or delete categories
--   **Empty states** - Helpful messages when categories have no tasks
+- **Drag & Drop functionality** - Reorder tasks within categories or move between them
+- **Multiple categories** - Organize tasks into custom columns (To Do, In Progress, Done, etc.)
+- **Task cards** - Display task title, description, and status
+- **Category management** - Add, rename, or delete categories
+- **Empty states** - Helpful messages when categories have no tasks
 
 ### ✏️ Task Editing
 
@@ -817,41 +817,41 @@ The intuitive Kanban board interface allows seamless task management:
 
 The task editing dialog provides comprehensive task management:
 
--   **Task details form** - Edit title, description, and other metadata
--   **Category selection** - Move tasks between categories via dropdown
--   **Status toggle** - Mark tasks as complete or incomplete
--   **Form validation** - Ensures all required fields are filled
--   **Save/Cancel actions** - Confirm or discard changes
--   **Real-time validation** - Instant feedback on input errors
--   **Optimistic updates** - UI updates immediately, rolls back on error
--   **Accessible modal** - Keyboard navigation and screen reader support
+- **Task details form** - Edit title, description, and other metadata
+- **Category selection** - Move tasks between categories via dropdown
+- **Status toggle** - Mark tasks as complete or incomplete
+- **Form validation** - Ensures all required fields are filled
+- **Save/Cancel actions** - Confirm or discard changes
+- **Real-time validation** - Instant feedback on input errors
+- **Optimistic updates** - UI updates immediately, rolls back on error
+- **Accessible modal** - Keyboard navigation and screen reader support
 
 ### Key User Experience Features
 
 ✨ **Visual Design:**
 
--   Modern glass morphism aesthetic with subtle transparency
--   Consistent color scheme with role-based color coding
--   Smooth animations and transitions
--   Material Design principles
+- Modern glass morphism aesthetic with subtle transparency
+- Consistent color scheme with role-based color coding
+- Smooth animations and transitions
+- Material Design principles
 
 🚀 **Performance:**
 
--   Optimistic UI updates for instant feedback
--   Automatic rollback on server errors
--   Efficient state management with TanStack Query
--   Lazy loading and code splitting
+- Optimistic UI updates for instant feedback
+- Automatic rollback on server errors
+- Efficient state management with TanStack Query
+- Lazy loading and code splitting
 
 📱 **Responsive Design:**
 
--   Adapts to desktop, tablet, and mobile screens
--   Touch-friendly drag & drop on mobile devices
+- Adapts to desktop, tablet, and mobile screens
+- Touch-friendly drag & drop on mobile devices
 
 🔔 **User Feedback:**
 
--   Toast notifications for all actions (success, error, info)
--   Loading spinners during async operations
--   Error messages with actionable solutions
+- Toast notifications for all actions (success, error, info)
+- Loading spinners during async operations
+- Error messages with actionable solutions
 
 ---
 
@@ -859,47 +859,47 @@ The task editing dialog provides comprehensive task management:
 
 ### Project Management
 
--   Create and organize multiple projects
--   Project dashboard with statistics
--   Real-time project updates
--   Project search functionality
+- Create and organize multiple projects
+- Project dashboard with statistics
+- Real-time project updates
+- Project search functionality
 
 ### Task Management
 
--   Create, update, and delete tasks
--   Organize tasks in categories
--   Drag-and-drop task reordering
--   Move tasks between categories
--   Mark tasks as complete/incomplete
--   Task descriptions and metadata
+- Create, update, and delete tasks
+- Organize tasks in categories
+- Drag-and-drop task reordering
+- Move tasks between categories
+- Mark tasks as complete/incomplete
+- Task descriptions and metadata
 
 ### Drag & Drop System
 
--   Intuitive drag-and-drop interface
--   Smooth animations with instant feedback
--   Optimistic UI updates
--   Works across categories
--   Category reordering support
+- Intuitive drag-and-drop interface
+- Smooth animations with instant feedback
+- Optimistic UI updates
+- Works across categories
+- Category reordering support
 
 ### Collaboration Features
 
--   Invite users to projects
--   Role-based permissions:
-    -   **Owner**: Full control (delete project, manage members, edit everything)
-    -   **Editor**: Edit content (create/edit/delete tasks and categories)
-    -   **Viewer**: Read-only access
--   View project members
--   Remove members from projects
--   User search functionality
+- Invite users to projects
+- Role-based permissions:
+    - **Owner**: Full control (delete project, manage members, edit everything)
+    - **Editor**: Edit content (create/edit/delete tasks and categories)
+    - **Viewer**: Read-only access
+- View project members
+- Remove members from projects
+- User search functionality
 
 ### User Experience
 
--   Glass morphism design
--   Responsive layout (mobile, tablet, desktop)
--   Toast notifications for all actions
--   Loading states and error handling
--   Optimistic updates with rollback
--   Empty states with helpful messages
+- Glass morphism design
+- Responsive layout (mobile, tablet, desktop)
+- Toast notifications for all actions
+- Loading states and error handling
+- Optimistic updates with rollback
+- Empty states with helpful messages
 
 ---
 
@@ -915,63 +915,63 @@ The application uses **PostgreSQL** as its database with **Prisma ORM** for type
 
 #### **User** (Authentication & Identity)
 
--   Stores user credentials and profile information
--   Fields: `id`, `email` (unique), `firstname`, `lastname`, `password` (hashed)
--   **Relations:**
-    -   One user can have many project memberships (`User` → `ProjectMembership`)
+- Stores user credentials and profile information
+- Fields: `id`, `email` (unique), `firstname`, `lastname`, `password` (hashed)
+- **Relations:**
+    - One user can have many project memberships (`User` → `ProjectMembership`)
 
 #### **Project** (Project Container)
 
--   Main organizational unit for tasks and categories
--   Fields: `id`, `name`
--   **Relations:**
-    -   One project has many memberships (`Project` → `ProjectMembership`)
-    -   One project has many categories (`Project` → `Category`)
--   **Cascade Delete:** Deleting a project removes all related memberships and categories
+- Main organizational unit for tasks and categories
+- Fields: `id`, `name`
+- **Relations:**
+    - One project has many memberships (`Project` → `ProjectMembership`)
+    - One project has many categories (`Project` → `Category`)
+- **Cascade Delete:** Deleting a project removes all related memberships and categories
 
 #### **ProjectMembership** (Access Control)
 
--   Junction table managing user access to projects with role-based permissions
--   Fields: `projectId`, `userId`, `role` (OWNER/EDITOR/VIEWER)
--   **Composite Primary Key:** `(projectId, userId)` - ensures unique user-project combinations
--   **Relations:**
-    -   Belongs to one project (`ProjectMembership` → `Project`)
-    -   Belongs to one user (`ProjectMembership` → `User`)
--   **Cascade Delete:** Removing a user or project automatically removes the membership
+- Junction table managing user access to projects with role-based permissions
+- Fields: `projectId`, `userId`, `role` (OWNER/EDITOR/VIEWER)
+- **Composite Primary Key:** `(projectId, userId)` - ensures unique user-project combinations
+- **Relations:**
+    - Belongs to one project (`ProjectMembership` → `Project`)
+    - Belongs to one user (`ProjectMembership` → `User`)
+- **Cascade Delete:** Removing a user or project automatically removes the membership
 
 #### **Role Enum**
 
 Role-based access control with three permission levels:
 
--   **OWNER**: Full control - can delete project, manage members, edit all content
--   **EDITOR**: Can create, edit, and delete categories and tasks
--   **VIEWER**: Read-only access to project content
+- **OWNER**: Full control - can delete project, manage members, edit all content
+- **EDITOR**: Can create, edit, and delete categories and tasks
+- **VIEWER**: Read-only access to project content
 
 #### **Category** (Task Grouping)
 
--   Organizes tasks into logical groups (e.g., "To Do", "In Progress", "Done")
--   Fields: `id`, `name`, `projectId`, `order` (for custom sorting)
--   **Relations:**
-    -   Belongs to one project (`Category` → `Project`)
-    -   One category has many tasks (`Category` → `Task`)
--   **Cascade Delete:** Deleting a category removes all its tasks
+- Organizes tasks into logical groups (e.g., "To Do", "In Progress", "Done")
+- Fields: `id`, `name`, `projectId`, `order` (for custom sorting)
+- **Relations:**
+    - Belongs to one project (`Category` → `Project`)
+    - One category has many tasks (`Category` → `Task`)
+- **Cascade Delete:** Deleting a category removes all its tasks
 
 #### **Task** (Work Items)
 
--   Individual work items within a category
--   Fields: `id`, `title`, `description`, `categoryId`, `order`, `isCompleted`
--   **Relations:**
-    -   Belongs to one category (`Task` → `Category`)
--   **Cascade Delete:** Automatically removed when parent category is deleted
+- Individual work items within a category
+- Fields: `id`, `title`, `description`, `categoryId`, `order`, `isCompleted`
+- **Relations:**
+    - Belongs to one category (`Task` → `Category`)
+- **Cascade Delete:** Automatically removed when parent category is deleted
 
 ### Key Database Features
 
--   **UUID Primary Keys**: All entities use UUIDs for distributed system compatibility
--   **Cascade Deletes**: Hierarchical deletion ensures data consistency
--   **Composite Keys**: `ProjectMembership` uses composite key to prevent duplicate assignments
--   **Unique Constraints**: Email addresses are unique across users
--   **Ordered Lists**: Categories and tasks have `order` fields for custom sorting
--   **Optional Fields**: Lastname and task description are nullable for flexibility
+- **UUID Primary Keys**: All entities use UUIDs for distributed system compatibility
+- **Cascade Deletes**: Hierarchical deletion ensures data consistency
+- **Composite Keys**: `ProjectMembership` uses composite key to prevent duplicate assignments
+- **Unique Constraints**: Email addresses are unique across users
+- **Ordered Lists**: Categories and tasks have `order` fields for custom sorting
+- **Optional Fields**: Lastname and task description are nullable for flexibility
 
 ---
 
@@ -983,30 +983,30 @@ Before installing Zenith, ensure your computer has the following software instal
 
 #### **Required (Docker Method - Recommended):**
 
--   **Docker Desktop** - [Download here](https://www.docker.com/products/docker-desktop/)
-    -   Includes Docker Engine and Docker Compose
-    -   Minimum version: Docker 20.10+, Docker Compose 2.0+
-    -   Windows: Requires WSL2 (Windows Subsystem for Linux)
-    -   macOS: 10.15 or later
-    -   Linux: Any modern distribution
--   **Git** - [Download here](https://git-scm.com/downloads)
-    -   For cloning the repository
+- **Docker Desktop** - [Download here](https://www.docker.com/products/docker-desktop/)
+    - Includes Docker Engine and Docker Compose
+    - Minimum version: Docker 20.10+, Docker Compose 2.0+
+    - Windows: Requires WSL2 (Windows Subsystem for Linux)
+    - macOS: 10.15 or later
+    - Linux: Any modern distribution
+- **Git** - [Download here](https://git-scm.com/downloads)
+    - For cloning the repository
 
 #### **Required (Local Development Method):**
 
--   **Node.js 18+** - [Download here](https://nodejs.org/)
-    -   Includes npm package manager
-    -   Recommended: Node.js 20 LTS or later
--   **PostgreSQL 14+** - [Download here](https://www.postgresql.org/download/)
-    -   Database server must be running
--   **Git** - [Download here](https://git-scm.com/downloads)
+- **Node.js 18+** - [Download here](https://nodejs.org/)
+    - Includes npm package manager
+    - Recommended: Node.js 20 LTS or later
+- **PostgreSQL 14+** - [Download here](https://www.postgresql.org/download/)
+    - Database server must be running
+- **Git** - [Download here](https://git-scm.com/downloads)
 
 #### **Optional Tools:**
 
--   **Visual Studio Code** - [Download here](https://code.visualstudio.com/)
-    -   Recommended IDE with TypeScript support
--   **Postman** - For API testing
--   **PgAdmin** - Database management GUI (included in Docker setup)
+- **Visual Studio Code** - [Download here](https://code.visualstudio.com/)
+    - Recommended IDE with TypeScript support
+- **Postman** - For API testing
+- **PgAdmin** - Database management GUI (included in Docker setup)
 
 ---
 
@@ -1014,10 +1014,10 @@ Before installing Zenith, ensure your computer has the following software instal
 
 The easiest way to run Zenith is using Docker Compose, which will set up:
 
--   PostgreSQL database (port 5433)
--   PgAdmin for database management (port 5051)
--   NestJS backend (port 3000)
--   React frontend (port 8080)
+- PostgreSQL database (port 5433)
+- PgAdmin for database management (port 5051)
+- NestJS backend (port 3000)
+- React frontend (port 8080)
 
 **1. Clone the repository:**
 
@@ -1026,21 +1026,13 @@ git clone https://github.com/jakubkoldarz/zenith.git
 cd zenith
 ```
 
-**2. Create environment file:**
+**2. Create environment file (REQUIRED):**
 
-Create a `.env` file in the root directory:
+Docker Compose reads environment variables from a `.env` file. Create it in the root directory:
 
-```env
-# Database Configuration
-DB_USER=zenith_user
-DB_PASSWORD=zenith_password
-DB_NAME=zenith_db
-
-# JWT Secret (use a strong random string in production)
-JWT_SECRET=secret-token
-
-# CORS Origins (comma-separated)
-CORS_ORIGINS=http://localhost:8080,http://localhost:3000,http://localhost:3001
+```bash
+# Copy the example file
+cp .env.example .env
 ```
 
 **3. Start all services:**
@@ -1051,10 +1043,10 @@ docker-compose up -d
 
 This will start:
 
--   **Backend**: http://localhost:3000
--   **Frontend**: http://localhost:8080
--   **PgAdmin**: http://localhost:5051 (email: `admin@admin.com`, password: `admin`)
--   **Database**: PostgreSQL on port 5433
+- **Backend**: http://localhost:3000
+- **Frontend**: http://localhost:8080
+- **PgAdmin**: http://localhost:5051 (email: `admin@admin.com`, password: `admin`)
+- **Database**: PostgreSQL on port 5433
 
 **4. Check if everything is running:**
 
@@ -1155,4 +1147,4 @@ This project is part of a university assignment.
 
 **Jakub Kołdarz**
 
--   GitHub: [@jakubkoldarz](https://github.com/jakubkoldarz)
+- GitHub: [@jakubkoldarz](https://github.com/jakubkoldarz)

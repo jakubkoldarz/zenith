@@ -9,6 +9,11 @@ COPY . .
 # Generate Prisma Client from schema
 RUN npx prisma generate
 
+# Copy entrypoint script and make it executable
+COPY docker-entrypoint.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
+
 EXPOSE 3000
 
-CMD ["sh", "-c", "npx prisma migrate deploy && npm run start:dev"]
+ENTRYPOINT ["docker-entrypoint.sh"]
+CMD ["npm", "run", "start:dev"]

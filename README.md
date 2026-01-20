@@ -86,15 +86,6 @@ Zenith is designed as a scalable platform for project and task management, empha
 -   [@nestjs/config](https://docs.nestjs.com/techniques/configuration) - Configuration management
 -   Environment variables (.env) - Secure credentials storage
 
-**Development Tools:**
-
--   [ESLint](https://eslint.org/) - Code linting with TypeScript support
--   [Prettier](https://prettier.io/) - Code formatting
--   [Jest](https://jestjs.io/) - Unit and integration testing
--   [Supertest](https://github.com/visionmedia/supertest) - HTTP endpoint testing
--   [ts-jest](https://github.com/kulshekhar/ts-jest) - TypeScript support for Jest
--   [@nestjs/testing](https://docs.nestjs.com/fundamentals/testing) - NestJS testing utilities
-
 **Architecture Patterns:**
 
 -   RESTful API design with `/api` prefix
